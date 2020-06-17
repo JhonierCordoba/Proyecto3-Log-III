@@ -28,15 +28,15 @@ public class Tripleta {
         this.value = v;
     }
 
-    public int returnRow() {
+    public int getRow() {
         return row;
     }
 
-    public int returnColumn() {
+    public int getColumn() {
         return column;
     }
 
-    public Object returnValue() {
+    public Object getValue() {
         return value;
     }
 }
