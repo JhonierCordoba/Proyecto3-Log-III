@@ -6,37 +6,37 @@ package Root;
  */
 public class Tripleta {
 
-    private int row;
-    private int column;
-    private Object value;
+    private int fila;
+    private int columna;
+    private Object valor;
 
-    public Tripleta(int row, int column, Object value) {
-        this.row = row;
-        this.column = column;
-        this.value = value;
+    public Tripleta(int fila, int columna, Object valor) {
+        this.fila = fila;
+        this.columna = columna;
+        this.valor = valor;
     }
 
-    public void setRow(int r) {
-        this.row = r;
+    public void asignaFila(int r) {
+        this.fila = r;
     }
 
-    public void setColumn(int c) {
-        this.column = c;
+    public void asignaColumna(int c) {
+        this.columna = c;
     }
 
-    public void setValue(Object v) {
-        this.value = v;
+    public void asignaValor(Object v) {
+        this.valor = v;
     }
 
-    public int getRow() {
-        return row;
+    public int retornaFila() {
+        return fila;
     }
 
-    public int getColumn() {
-        return column;
+    public int retornaColumna() {
+        return columna;
     }
 
-    public Object getValue() {
-        return value;
+    public Object retornaValor() {
+        return valor;
     }
 }
