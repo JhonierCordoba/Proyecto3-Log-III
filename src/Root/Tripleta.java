@@ -6,21 +6,21 @@ package Root;
  */
 public class Tripleta {
 
-    private int fila;
-    private int columna;
+    private Integer fila;
+    private Integer columna;
     private Object valor;
 
-    public Tripleta(int fila, int columna, Object valor) {
+    public Tripleta(Integer fila, Integer columna, Object valor) {
         this.fila = fila;
         this.columna = columna;
         this.valor = valor;
     }
 
-    public void asignaFila(int r) {
+    public void asignaFila(Integer r) {
         this.fila = r;
     }
 
-    public void asignaColumna(int c) {
+    public void asignaColumna(Integer c) {
         this.columna = c;
     }
 
@@ -28,11 +28,11 @@ public class Tripleta {
         this.valor = v;
     }
 
-    public int retornaFila() {
+    public Integer retornaFila() {
         return fila;
     }
 
-    public int retornaColumna() {
+    public Integer retornaColumna() {
         return columna;
     }
 
