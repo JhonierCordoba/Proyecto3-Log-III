@@ -448,9 +448,9 @@ public class Configuracion {
             for (int j = 1; j <= c; j++) {
                 t_mt = this.retornaCasilla(mt, i, j);
                 t_mf1 = this.retornaCasilla(mf1, i, j);
-                if (!t_mt.retornaValor().equals("0") || !t_mf1.retornaValor().equals("0")) {
-                    int v1 = Integer.parseInt((String) t_mt.retornaValor());
-                    int v2 = Integer.parseInt((String) t_mf1.retornaValor());
+                if (!((int) t_mt.retornaValor() == 0) || !((int) t_mf1.retornaValor() == 0)) {
+                    int v1 = (int) t_mt.retornaValor();
+                    int v2 = (int) t_mf1.retornaValor();
                     t_r = new Tripleta(i, j, v1 + v2);
                     tripletas.add(t_r);
                     cantidad++;
@@ -473,7 +473,7 @@ public class Configuracion {
                 return t;
             }
         }
-        t = new Tripleta(f, c, "0");
+        t = new Tripleta(f, c, 0);
         return t;
     }
 
@@ -485,7 +485,7 @@ public class Configuracion {
                 return t;
             }
         }
-        t = new Tripleta(f, c, "0");
+        t = new Tripleta(f, c, 0);
         return t;
     }
 
@@ -713,7 +713,7 @@ public class Configuracion {
     }
 
     public void agregarDato_Mt(MatrizEnTripletas m) {
-        Tripleta t = this.escuchar_dato(m, null, null,0);
+        Tripleta t = this.escuchar_dato(m, null, null, 0);
         if (t == null) {
             return;
         }
@@ -724,7 +724,7 @@ public class Configuracion {
     }
 
     public void agregarDato_Mf1(MatrizEnForma1 m) {
-        Tripleta t = this.escuchar_dato(null, m, null,0);
+        Tripleta t = this.escuchar_dato(null, m, null, 0);
         if (t == null) {
             return;
         }
@@ -737,7 +737,7 @@ public class Configuracion {
     }
 
     public void agregarDato_Mf2(MatrizEnForma2 m) {
-        Tripleta t = this.escuchar_dato(null, null, m,0);
+        Tripleta t = this.escuchar_dato(null, null, m, 0);
         if (t == null) {
             return;
         }
@@ -750,7 +750,7 @@ public class Configuracion {
     }
 
     public void EliminarDato_Mt(MatrizEnTripletas m) {
-        Tripleta t = this.escuchar_dato(m, null, null,1);
+        Tripleta t = this.escuchar_dato(m, null, null, 1);
         if (t == null) {
             return;
         }
@@ -760,7 +760,7 @@ public class Configuracion {
     }
 
     public void EliminarDato_Mf1(MatrizEnForma1 m) {
-        Tripleta t = this.escuchar_dato(null, m, null,1);
+        Tripleta t = this.escuchar_dato(null, m, null, 1);
         if (t == null) {
             return;
         }
@@ -770,7 +770,7 @@ public class Configuracion {
     }
 
     public void EliminarDato_Mf2(MatrizEnForma2 m) {
-        Tripleta t = this.escuchar_dato(null, null, m,1);
+        Tripleta t = this.escuchar_dato(null, null, m, 1);
         if (t == null) {
             return;
         }
@@ -779,11 +779,11 @@ public class Configuracion {
         this.plantilla.acierto(2);
     }
 
-    public Tripleta escuchar_dato(MatrizEnTripletas mt, MatrizEnForma1 mf1, MatrizEnForma2 mf2,int tipo) {
+    public Tripleta escuchar_dato(MatrizEnTripletas mt, MatrizEnForma1 mf1, MatrizEnForma2 mf2, int tipo) {
         Tripleta t;
         Scanner sc = new Scanner(System.in);
         int f = 0, c;
-        String v;
+        Object v;
         int i = 0;
         int ans;
         this.plantilla.dato(tipo);
@@ -855,12 +855,16 @@ public class Configuracion {
                 break;
             }
         } while (true);
-        if(tipo == 1){
+        if (tipo == 1) {
             return new Tripleta(f, c, 0);
         }
         this.plantilla.eje(2);
-        v = sc.nextLine();
-        if (v.equals("0")) {
+        try {
+            v = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            v = sc.nextLine();
+        }
+        if ((int)v == 0) {
             this.limpiar();
             return null;
         }
@@ -1186,9 +1190,13 @@ public class Configuracion {
                 }
                 fc[1] = ans;
                 this.plantilla.eje(2);
-                v = sc.nextLine();
                 try {
-                    if (v.equals("0")) {
+                    v = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException e) {
+                    v = sc.nextLine();
+                }
+                try {
+                    if ((int) v == 0) {
                         this.limpiar();
                         if (tripletas.size() > 1) {
                             dim = this.generar_dimension(tripletas);
@@ -1295,7 +1303,7 @@ public class Configuracion {
                 ArrayList conf_string = this.plantilla.traducir(configuracion);
                 this.plantilla.configuracion(conf_string);
             }
-            case "despedida":{
+            case "despedida": {
                 this.plantilla.defecto(-1);
             }
         }
