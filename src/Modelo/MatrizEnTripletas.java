@@ -1,22 +1,26 @@
-package Root;
+package Modelo;
+
+import Vistas.Plantilla;
 
 /**
- *
  * @author JuanZea
  */
 public class MatrizEnTripletas {
 
     private Tripleta[] V;
 
-    public MatrizEnTripletas(Tripleta t) { // Modificado
+    // Modificado
+    public MatrizEnTripletas(Tripleta t) {
         int n = t.retornaColumna();
         int m = t.retornaFila();
         int p = n * m + 1;
-        // int i; // se usa en docs
+        // se usa en docs
+        // int i;
         V = new Tripleta[p];
         V[0] = t;
-        // for (i = 1; i <= p; i++) { // se usa en docs
-        // }
+        // se usa en docs
+        /* for (i = 1; i <= p; i++) {
+        }*/
     }
 
     public MatrizEnTripletas(int m, int n) {
@@ -50,17 +54,17 @@ public class MatrizEnTripletas {
         return this.V[i];
     }
 
-    public void muestraMatrizEnTripletas() { // Modificado
-        System.out.println("------------------------------");
-        System.out.println("id. ( Fila , Columnaa , Valor )");
-        System.out.println("------------------------------");
+    // Modificado
+    public void muestraMatrizEnTripletas() {
+        Plantilla plantilla = new Plantilla();
+        plantilla.mostrar_Mt();
         for (int i = 1; i <= (int) this.V[0].retornaValor(); i++) {
-            System.out.println(i + "." + " ( " + this.V[i].retornaFila() + ", " + this.V[i].retornaColumna() + ", "
-                    + this.V[i].retornaValor() + " )");
+            plantilla.mostrar_Mt(i, this.V[i].retornaFila(), this.V[i].retornaColumna(), this.V[i].retornaValor());
         }
     }
 
-    public void imprimeMatriz() { // Original
+    // Original
+    public void imprimeMatriz() {
         for (int f = 1; f <= this.V[0].retornaFila(); f++) {
             for (int c = 1; c <= this.V[0].retornaColumna(); c++) {
                 for (int i = 1; i <= (int) this.V[0].retornaValor(); i++) {
@@ -68,7 +72,7 @@ public class MatrizEnTripletas {
                         System.out.print(this.V[i].retornaValor() + "\t");
                         break;
                     } else if (i == (int) this.V[0].retornaValor()) {
-                        System.out.print("0" + "\t");
+                        System.out.print("0\t");
                         break;
                     }
                 }
@@ -77,7 +81,8 @@ public class MatrizEnTripletas {
         }
     }
 
-    public void insertaTripleta(Tripleta t) { // Defectuoso (83)
+    // Defectuoso (83)
+    public void insertaTripleta(Tripleta t) {
         int f = t.retornaFila();
         int c = t.retornaColumna();
         int i = 0;
@@ -98,9 +103,10 @@ public class MatrizEnTripletas {
         this.V[0].asignaValor(p);
     }
 
-    public void insertaTripleta_v2(Tripleta t) { // i comienza en 1, para que las tripletas a insertar no se comparen
-                                                 // con
-        // V[0]
+    /*
+     *  i comienza en 1, para que las tripletas a insertar no se comparen con V[0]
+     */
+    public void insertaTripleta_v2(Tripleta t) {
         int f = t.retornaFila();
         int c = t.retornaColumna();
         int i = 1;
@@ -129,7 +135,8 @@ public class MatrizEnTripletas {
         return null;
     }
 
-    public MatrizEnTripletas transpuesta_obsoleto() { // Modificado (140)
+    // Modificado (140)
+    public MatrizEnTripletas transpuesta_obsoleto() {
         int m = this.V[0].retornaFila();
         int n = this.V[0].retornaColumna();
         int p = (int) this.V[0].retornaValor();
@@ -147,7 +154,8 @@ public class MatrizEnTripletas {
         return at;
     }
 
-    public MatrizEnTripletas transpuesta() { // Modificado (165)
+    // Modificado (165)
+    public MatrizEnTripletas transpuesta() {
         int m = this.V[0].retornaFila();
         int n = this.V[0].retornaColumna();
         Object p = this.V[0].retornaValor();
@@ -183,6 +191,33 @@ public class MatrizEnTripletas {
         return null;
     }
 
+    public void borrarDato(int f, int c) {
+        Tripleta t;
+        int pos = 0;
+        for (int i = 1; i <= this.retornaNumeroTripletas(); i++) {
+            t = this.retornaTripleta(i);
+            if (t.retornaFila() == f && t.retornaColumna() == c) {
+                pos = i;
+                break;
+            }
+        }
+        if(pos == 0){
+            return;
+        }
+        t = this.retornaTripleta(0);
+        int cantidad = (int)t.retornaValor();
+        t.asignaValor(cantidad - 1);
+        this.asignaTripleta(t, 0);
+        for (int i = pos; i <= this.retornaNumeroTripletas(); i++) {
+            if(this.retornaTripleta(i+1) == null){
+                this.asignaTripleta(null,i);
+                return;
+            }
+            t = this.retornaTripleta(i+1);
+            this.asignaTripleta(t,i);
+        }
+    }
+
     public int sumarTriangular_SupI() {
         if (!this.esCuadrada()) {
             return -1;
@@ -191,7 +226,7 @@ public class MatrizEnTripletas {
         int n = this.V[0].retornaFila();
         for (int i = 1; i <= n; i++) {
             if (this.V[i].retornaFila() + this.V[i].retornaColumna() <= (n + 1)) {
-                acumulado += (int) this.V[i].retornaValor();
+                acumulado += Integer.parseInt((String) this.V[i].retornaValor()) ;
             }
         }
         return acumulado;
