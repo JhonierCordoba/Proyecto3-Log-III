@@ -1,4 +1,4 @@
-package Root;
+package Modelo;
 
 public class NodoDoble {
     private Object dato;
