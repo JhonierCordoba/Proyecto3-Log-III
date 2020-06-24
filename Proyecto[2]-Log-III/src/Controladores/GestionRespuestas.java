@@ -32,6 +32,19 @@ public class GestionRespuestas {
         return ans;
     }
 
+     public String escuchar_nombre(){
+        this.plantilla.menu("Crear Lista Generalizada", "Póngale nombre a la lista", null);
+        this.plantilla.input(0, null);
+        String nom = this.escuchar();
+        if (nom.equals("0")) {
+            this.limpiar();
+            this.plantilla.desacierto(0);
+            return null;
+        }
+        this.limpiar();
+        return nom;
+    }
+
     public void limpiar() {
         for (int i = 0; i < 100; i++) {
             System.out.println();

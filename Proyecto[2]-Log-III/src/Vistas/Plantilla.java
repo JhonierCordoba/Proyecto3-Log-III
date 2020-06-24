@@ -12,7 +12,7 @@ public class Plantilla {
 
     public void menu(String titulo, String descripcion, String[] opciones) {
         int n = 0;
-        if(opciones != null){
+        if (opciones != null) {
             n = opciones.length;
         }
         System.out.println(AMARILLO + titulo + RESET + " | " + MORADO + descripcion + RESET);
@@ -22,15 +22,44 @@ public class Plantilla {
         this.defecto(0);
     }
 
+    public void mostrarLg(String lista) {
+        for (int i = 0; i < lista.length(); i++) {
+            switch (lista.charAt(i)) {
+                case '(':
+                case ',':
+                case ')': {
+                    System.out.print(ROJO + lista.charAt(i) + RESET);
+                    break;
+                }
+                default:{
+                    System.out.printf(AMARILLO + lista.charAt(i) + RESET);
+                }
+            }
+        }
+        System.out.println("");
+    }
+
     /**
-     * @param id 0: Ingresar S
+     * @param id 0,null: Ingresar nombre, 0,s: Ingresar s
      */
-    public void input(int id){
-    switch (id){
-            case 0: {
-                System.out.print(VERDE + "S = " + RESET);
-                break;
-            }}
+    public void input(int id, String s) {
+        if (s != null) {
+            switch (id) {
+                case 0: {
+                    System.out.print(VERDE + s + " = " + RESET);
+                    break;
+                }
+            }
+        } else {
+            switch (id) {
+                case 0: {
+                    System.out.print(VERDE + "Nombre: " + RESET);
+                    break;
+                }
+            }
+        }
+
+
     }
 
     /**
@@ -40,6 +69,10 @@ public class Plantilla {
         switch (id) {
             case 0: {
                 System.out.println(VERDE + "¡La lista generalizada fue creada correctamente!" + RESET);
+                break;
+            }
+            case 1: {
+                System.out.println(VERDE + "¡La lista generalizada fue copiada correctamente!" + RESET);
                 break;
             }
         }
@@ -85,8 +118,8 @@ public class Plantilla {
      *
      * @param id 0: Salir, 1: Regresar, 2: Despedida
      */
-    public void defecto(int id){
-        switch (id){
+    public void defecto(int id) {
+        switch (id) {
             case 0: {
                 System.out.println(ROJO + "0. Salir" + RESET);
                 break;
@@ -97,6 +130,10 @@ public class Plantilla {
             }
             case 2: {
                 System.out.println(AMARILLO + "Adiós\t\t\t" + ITALICA + MORADO + "by: JuanZea" + RESET);
+                break;
+            }
+            case 3: {
+                System.out.println(ROJO + "Presione ENTER para regresar" + RESET);
                 break;
             }
         }

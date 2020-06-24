@@ -5,13 +5,24 @@ import java.util.Stack;
 public class ListaGeneralizada {
     private NodoLg primero, ultimo;
 
+    public ListaGeneralizada() {
+
+    }
+
+    public ListaGeneralizada(NodoLg p) {
+        this.primero = p;
+        while (p.retornaLiga() != null) {
+            p = p.retornaLiga();
+        }
+        this.ultimo = p;
+    }
+
     /**
      * Modificado: Puede guardar cadenas de varios caracteres en vez de solo uno.
      *
      * @param s Formato: (a,juan,(j,ua,n),b,c)
      */
     public void construirLista(String s) {
-        System.out.println("Construyendo...");
         Stack pila = new Stack();
         NodoLg x = new NodoLg();
         this.primero = x;
@@ -43,8 +54,8 @@ public class ListaGeneralizada {
                     break;
                 }
                 case ')': {
-                    if(dato != null){
-                    this.ultimo.asignaDato(dato);
+                    if (dato != null) {
+                        this.ultimo.asignaDato(dato);
                     }
                     dato = null;
                     ultimo = (NodoLg) pila.pop();
@@ -55,5 +66,28 @@ public class ListaGeneralizada {
         if (dato != null) {
             this.ultimo.asignaDato(dato);
         }
+    }
+
+    public String mostrarLista() {
+        String lista = "(";
+        NodoLg p = this.primero;
+        while (p != null) {
+            if (p.retornaSw()) {
+                // Crea nueva lista con primero modificado y retorna recursivo
+                ListaGeneralizada lg = new ListaGeneralizada((NodoLg) p.retornaDato());
+                lista += lg.mostrarLista();
+            } else {
+                lista += String.valueOf(p.retornaDato());
+            }
+            lista += ",";
+            p = p.retornaLiga();
+        }
+        lista = lista.substring(0, lista.length()-1) + ")";
+        return lista;
+    }
+
+    public ListaGeneralizada copiarLista(){
+        // (._. )( ._.)
+        return new ListaGeneralizada(this.primero);
     }
 }
