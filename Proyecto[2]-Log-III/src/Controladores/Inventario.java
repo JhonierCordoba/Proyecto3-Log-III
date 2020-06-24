@@ -1,27 +1,26 @@
 package Controladores;
 
 import Modelos.ListaGeneralizada;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
 public class Inventario {
-    private ArrayList<Registro> invLg = new ArrayList<>();
+    private ArrayList<ListaGeneralizada> lg = new ArrayList<>();
+    private ObservableList<String> nomLg = FXCollections.observableArrayList();
 
-    public void guardarLg(Registro r){
-        invLg.add(r);
+    public void guardarLg(String nom,ListaGeneralizada lg){
+        this.lg.add(lg);
+        this.nomLg.add(nom);
+    }
+
+    public ObservableList<String> retornaNombresLg(){
+        return this.nomLg;
     }
 
     public ListaGeneralizada retornaLg(int i){
-        Registro r = invLg.get(i);
-        return r.retornaLg();
+        return this.lg.get(i);
     }
 
-    public String retornaNombreLg(int i){
-        Registro r = invLg.get(i);
-        return r.retornaNombre();
-    }
-
-    public int retornaCantidadLg(){
-        return this.invLg.size();
-    }
 }
