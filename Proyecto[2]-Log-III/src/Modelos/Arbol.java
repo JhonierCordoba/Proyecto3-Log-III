@@ -1,5 +1,7 @@
 package Modelos;
 
+import java.util.ArrayList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Arbol {
@@ -152,26 +154,28 @@ public class Arbol {
         if (r.retornaLiga() == null) {
             return 1;
         }
-        int nivelMaximo = 2;
+        int nivelMaximo = 0;
+        int nivel;
         NodoLg p = r.retornaLiga();
         while (p != null) {
             if (p.retornaSw()) {
-                nivelMaximo += this.altura((NodoLg) p.retornaDato()) - 1;
+                nivel = this.altura((NodoLg) p.retornaDato()) - 1;
+                nivelMaximo = (nivel > nivelMaximo) ? nivel : nivelMaximo;
             }
             p = p.retornaLiga();
         }
-        return nivelMaximo;
+        return nivelMaximo + 2;
     }
 
     public boolean primos(Character primo1, Character primo2) {
-        if(primo1 == null || primo2 == null){
+        if (primo1 == null || primo2 == null) {
             return false;
         }
-        return hermanos(padre(primo1),padre(primo2));
+        return hermanos(padre(primo1), padre(primo2));
     }
 
     public Character padre(Character primo1) {
-        if(this.raiz.retornaDato() == primo1){
+        if (this.raiz.retornaDato() == primo1) {
             return null;
         }
         NodoLg p1 = this.raiz;
@@ -201,13 +205,45 @@ public class Arbol {
                 h1 = h1.retornaLiga();
             }
         }
-        return (Character)p1.retornaDato();
+        return (Character) p1.retornaDato();
     }
 
     public boolean hermanos(Character primo1, Character primo2) {
-        if(primo1 == null || primo2 == null || primo1 == primo2){
+        if (primo1 == null || primo2 == null || primo1 == primo2) {
             return false;
         }
-        return padre(primo1)==padre(primo2);
+        return padre(primo1) == padre(primo2);
+    }
+
+    public ArbolBinario convertirEnBinario() {
+        if (this.raiz == null) {
+            return new ArbolBinario();
+        }
+        NodoLg raiz = this.raiz;
+        NodoDoble r = hijos(raiz);
+        NodoDoble raizBinario = new NodoDoble(raiz.retornaDato());
+        raizBinario.asignaLI(r);
+        ArbolBinario a = new ArbolBinario(raizBinario);
+        return a;
+    }
+
+    public NodoDoble hijos(NodoLg r) {
+        NodoDoble raiz = new NodoDoble(r.retornaDato());
+        NodoDoble ultimo = raiz;
+        NodoDoble x;
+        r = r.retornaLiga();
+        while (r != null) {
+            if (!r.retornaSw()) {
+                x = new NodoDoble(r.retornaDato());
+                ultimo.asignaLD(x);
+            } else {
+                x = new NodoDoble(((NodoLg) r.retornaDato()).retornaDato());
+                ultimo.asignaLD(x);
+                x.asignaLI(hijos((NodoLg) r.retornaDato()));
+            }
+            ultimo = x;
+            r = r.retornaLiga();
+        }
+        return raiz.retornaLD();
     }
 }
