@@ -43,11 +43,9 @@ public class WindowController {
         }
         this.tfNom_Ma.setDisable(true);
         this.tfVert_Ma.setDisable(false);
-        MatrizAdyacente mT = new MatrizAdyacente(0);
+        MatrizAdyacente m = new MatrizAdyacente(0);
         ObservableList<String> vts = FXCollections.observableArrayList();
-//        MatrizAdyacente m1 = new MatrizAdyacente(1);
-//        MatrizAdyacente m2 = new MatrizAdyacente(2);
-        this.sg.save_Ma(this.tfNom_Ma.getText(), mT, vts);
+        this.sg.save_Ma(this.tfNom_Ma.getText(), m, vts);
         this.listN_Ma.setItems(this.sg.returnN_Ma());
         this.listN_Ma.getSelectionModel().select(this.sg.returnN_Ma().size() - 1);
     }
@@ -73,10 +71,24 @@ public class WindowController {
         // LLenar los combobox
         this.cbV1_Ma.setItems(this.listV_Ma.getItems());
         this.cbV2_Ma.setItems(this.listV_Ma.getItems());
+        this.cbV1_Ma.setDisable(false);
+        this.cbV2_Ma.setDisable(false);
     }
     
     public void conectarV_Ma() {
-    
+        if (!this.cbV1_Ma.isFocused() || !this.cbV2_Ma.isFocused()) {
+            errors(2);
+            return;
+        }
+        if (this.cbV1_Ma.getSelectionModel().getSelectedIndex() == this.cbV2_Ma.getSelectionModel().getSelectedIndex()) {
+            errors(3);
+            return;
+        }
+        int i = this.listN_Ma.getSelectionModel().getSelectedIndex();
+        MatrizAdyacente m = this.sg.return_Ma(i);
+        int a = cbV1_Ma.getSelectionModel().getSelectedIndex();
+        int b = cbV2_Ma.getSelectionModel().getSelectedIndex();
+        m.agregarConexion(a, b);
     }
     
     /**
@@ -100,7 +112,7 @@ public class WindowController {
                 break;
             }
             case 3: {
-                message = "No se pertimen loops en las matrices";
+                message = "No se permiten loops en las matrices";
                 break;
             }
         }
