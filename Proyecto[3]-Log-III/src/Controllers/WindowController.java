@@ -5,6 +5,7 @@ import Modelos.Storage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -22,6 +23,10 @@ public class WindowController {
     private ListView listN_Ma;
     @FXML
     private ListView listV_Ma;
+    @FXML
+    private ComboBox cbV1_Ma;
+    @FXML
+    private ComboBox cbV2_Ma;
     
     public void mostrarVertices_Ma(){
         this.listV_Ma.setItems(this.sg.returnV_Ma(this.listN_Ma.getSelectionModel().getSelectedIndex()));
@@ -65,5 +70,9 @@ public class WindowController {
         this.tfNom_Ma.setDisable(false);
         this.tfVert_Ma.setText("");
         this.tfVert_Ma.setDisable(true);
+    }
+    
+    public void conectarV_Ma(){
+        
     }
 }
