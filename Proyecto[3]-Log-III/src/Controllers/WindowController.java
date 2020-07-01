@@ -76,7 +76,7 @@ public class WindowController {
         }
         this.tfNom_Ma.setDisable(true);
         this.tfVert_Ma.setDisable(false);
-        MatrizAdyacente m = new MatrizAdyacente(0);
+        MatrizAdyacente m = new MatrizAdyacente();
         ObservableList<String> vts = FXCollections.observableArrayList();
         this.sg.save_Ma(this.tfNom_Ma.getText(), m, vts);
         this.listN_Ma.setItems(this.sg.returnN_Ma());
@@ -103,15 +103,20 @@ public class WindowController {
     }
     
     public void finaliza_Ma() {
+        if(this.listN_Ma.getSelectionModel().isEmpty()){
+            errors(0);
+            return;
+        }
         this.tfNom_Ma.setText("");
         this.tfNom_Ma.setDisable(false);
         this.tfVert_Ma.setText("");
         this.tfVert_Ma.setDisable(true);
-        int i = this.listN_Ma.getSelectionModel().getSelectedIndex();
-        MatrizAdyacente m = this.sg.return_Ma(i);
-        i = this.sg.returnNV_Ma(i);
-        m.tamaño_Ma(i);
-        System.out.println(i);
+        // Creación de matriz Adyacente
+        int select = this.listN_Ma.getSelectionModel().getSelectedIndex();
+        MatrizAdyacente m = this.sg.return_Ma(select);
+        select = this.sg.returnNV_Ma(select);
+        m.tamaño_Ma(select);
+        System.out.println(select);
         // LLenar los combobox
         this.cbV1_Ma.setItems(this.listV_Ma.getItems());
         this.cbV2_Ma.setItems(this.listV_Ma.getItems());

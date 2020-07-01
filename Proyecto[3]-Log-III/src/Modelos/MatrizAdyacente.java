@@ -5,10 +5,7 @@ public class MatrizAdyacente {
     
     int[][] m;
     
-    /**
-     * @param tipo 0: MatrizEnTripletas, 1:MatrizEnForma1, 2:MatrizEnForma2
-     */
-    public MatrizAdyacente(int tipo) {
+    public MatrizAdyacente() {
     }
     
     public void agregarConexion(int i, int j) {
