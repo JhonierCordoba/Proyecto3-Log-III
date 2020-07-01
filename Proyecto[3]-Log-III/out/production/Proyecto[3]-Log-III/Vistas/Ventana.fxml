@@ -32,7 +32,7 @@
                                           </Label>
                                           <Label layoutX="70.0" layoutY="100.0" text="Vértice:" />
                                           <Label layoutX="66.0" layoutY="69.0" text="Nombre:" />
-                                          <TextField fx:id="tfNom_Ma" layoutX="123.0" layoutY="65.0" promptText="Matrix" />
+                                          <TextField fx:id="tfNom_Ma" layoutX="123.0" layoutY="65.0" promptText="Matrix" onKeyPressed="#ingresarNombre_Ma" />
                                           <TextField fx:id="tfVert_Ma" disable="true" layoutX="123.0" layoutY="96.0" prefHeight="25.0" prefWidth="72.0" promptText="1" />
                                           <ListView fx:id="listV_Ma" layoutX="428.0" layoutY="65.0" prefHeight="200.0" prefWidth="131.0" />
                                           <Button layoutX="202.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#agregarNombre_Ma" prefHeight="25.0" prefWidth="69.0" text="Agregar" />
@@ -48,9 +48,9 @@
                                                 <Font name="Segoe UI Bold" size="20.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="cbV1_Ma" layoutX="128.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
+                                          <ComboBox fx:id="cbV1_Ma" disable="true" layoutX="128.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
                                           <Separator layoutX="14.0" layoutY="170.0" prefHeight="0.0" prefWidth="252.0" />
-                                          <ComboBox fx:id="cbV2_Ma" layoutX="206.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
+                                          <ComboBox fx:id="cbV2_Ma" disable="true" layoutX="206.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
                                           <Button layoutX="127.0" layoutY="218.0" mnemonicParsing="false" onMouseClicked="#conectarV_Ma" prefHeight="25.0" prefWidth="143.0" text="Conectar" />
                                           <Label layoutX="67.0" layoutY="186.0" text="Vértices:" />
                                        </children>
