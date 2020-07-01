@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import javax.swing.*;
@@ -68,6 +70,11 @@ public class WindowController {
         this.tfNom_Ma.setDisable(false);
         this.tfVert_Ma.setText("");
         this.tfVert_Ma.setDisable(true);
+        int i = this.listN_Ma.getSelectionModel().getSelectedIndex();
+        MatrizAdyacente m = this.sg.return_Ma(i);
+        i = this.sg.returnNV_Ma(i);
+        m.tamaño_Ma(i);
+        System.out.println(i);
         // LLenar los combobox
         this.cbV1_Ma.setItems(this.listV_Ma.getItems());
         this.cbV2_Ma.setItems(this.listV_Ma.getItems());
@@ -76,7 +83,7 @@ public class WindowController {
     }
     
     public void conectarV_Ma() {
-        if (!this.cbV1_Ma.isFocused() || !this.cbV2_Ma.isFocused()) {
+        if (this.cbV1_Ma.getSelectionModel().getSelectedIndex() == -1 || this.cbV2_Ma.getSelectionModel().getSelectedIndex() == -1) {
             errors(2);
             return;
         }
@@ -108,7 +115,7 @@ public class WindowController {
                 break;
             }
             case 2: {
-                message = "Seleccione al menos 2 vértices";
+                message = "Seleccione 2 vértices";
                 break;
             }
             case 3: {
