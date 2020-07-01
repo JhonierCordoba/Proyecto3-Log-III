@@ -34,7 +34,15 @@ public class Storage {
         }
         return null;
     }
-    
+
+    public MatrizAdyacente return_Ma(int i){
+        return this.sg_Ma.get(i);
+    }
+
+    public int returnNV_Ma(int i){
+        return this.vt_Ma.get(i).size();
+    }
+
     public void addV_Ma(int i,String vt){
         this.vt_Ma.get(i).add(vt);
     }
