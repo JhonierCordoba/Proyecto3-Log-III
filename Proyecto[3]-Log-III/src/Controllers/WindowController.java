@@ -5,9 +5,12 @@ import Modelos.Storage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import javax.swing.*;
@@ -28,11 +31,41 @@ public class WindowController {
     @FXML
     private ComboBox cbV2_Ma;
     
-    public void mostrarVertices_Ma() {
-        this.listV_Ma.setItems(this.sg.returnV_Ma(this.listN_Ma.getSelectionModel().getSelectedIndex()));
+    // OnKeyPressed - open
+    
+    public void btnAgregarNombre_Ma(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            this.agregarNombre_Ma();
+        }
     }
     
-    public void agregarNombre_Ma(MouseEvent event) {
+    public void btnFinaliza_Ma(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            this.finaliza_Ma();
+        }
+    }
+    
+    public void btnConectarV_Ma(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            this.conectarV_Ma();
+        }
+    }
+    
+    public void tfNom_Ma(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            this.agregarNombre_Ma();
+        }
+    }
+    
+    public void tfVert_Ma(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            this.agregarVertice_Ma();
+        }
+    }
+    
+    // OnKeyPressed - close
+    
+    public void agregarNombre_Ma() {
         if (this.tfNom_Ma.isDisable()) {
             this.agregarVertice_Ma();
             return;
@@ -61,6 +94,12 @@ public class WindowController {
         this.tfVert_Ma.setText("");
         this.tfVert_Ma.setPromptText("Agregado");
         this.listV_Ma.setItems(this.sg.returnV_Ma(pos));
+    }
+    
+    public void actualizarVertices_Ma() {
+        this.listV_Ma.setItems(this.sg.returnV_Ma(this.listN_Ma.getSelectionModel().getSelectedIndex()));
+        this.cbV1_Ma.setItems(this.sg.returnV_Ma(this.listN_Ma.getSelectionModel().getSelectedIndex()));
+        this.cbV2_Ma.setItems(this.sg.returnV_Ma(this.listN_Ma.getSelectionModel().getSelectedIndex()));
     }
     
     public void finaliza_Ma() {
