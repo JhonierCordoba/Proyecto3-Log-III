@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -46,6 +48,11 @@
                                                 <Font name="Segoe UI Bold" size="20.0" />
                                              </font>
                                           </Label>
+                                          <ComboBox fx:id="cbV1_Ma" layoutX="128.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
+                                          <Separator layoutX="14.0" layoutY="170.0" prefHeight="0.0" prefWidth="252.0" />
+                                          <ComboBox fx:id="cbV2_Ma" layoutX="206.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
+                                          <Button layoutX="127.0" layoutY="218.0" mnemonicParsing="false" onMouseClicked="#conectarV_Ma" prefHeight="25.0" prefWidth="143.0" text="Conectar" />
+                                          <Label layoutX="67.0" layoutY="186.0" text="Vértices:" />
                                        </children>
                                     </AnchorPane>
                               </content>
