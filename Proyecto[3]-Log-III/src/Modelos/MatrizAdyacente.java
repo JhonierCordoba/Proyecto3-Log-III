@@ -4,8 +4,6 @@ public class MatrizAdyacente {
     
     
     MatrizEnTripletas mT;
-//    MatrizEnForma1 m1;
-//    MatrizEnForma2 m2;
     
     /**
      *
@@ -17,5 +15,8 @@ public class MatrizAdyacente {
                 mT = new MatrizEnTripletas();
             }
         }
+    }
+    public void agregarConexion(int i, int j){
+
     }
 }
