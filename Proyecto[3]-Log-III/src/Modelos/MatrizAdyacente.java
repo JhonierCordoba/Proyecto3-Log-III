@@ -3,18 +3,29 @@ package Modelos;
 public class MatrizAdyacente {
     
     
-    int[][] m;
+    MatrizForma1 p;
     
-    public MatrizAdyacente() {
+    public MatrizAdyacente(int n) {
+        this.p = new MatrizForma1(n, n);
+        p.contruyeNodosCabeza();
     }
     
-    public void agregarConexion(int i, int j) {
-        System.out.println("primero: " + i + "segundo: " + j);
-        this.m[i][j] = 1;
-        this.m[j][i] = 1;
+    public MatrizForma1 retornaM1(){
+        return p;
     }
-
-    public void tamaño(int n){
-        this.m = new int[n][n];
+    
+    public int retornaNv(){
+        return this.p.retornaNumeroFilas();
+    }
+    
+    public void agregarConexion(int i, int j, int price) {
+        Tripleta t = new Tripleta(i, j, price);
+        NodoDoble x = new NodoDoble(t);
+        this.p.conectaPorFilas(x);
+        this.p.conectaPorColumnas(x);
+        t = new Tripleta(j, i, price);
+        x = new NodoDoble(t);
+        this.p.conectaPorFilas(x);
+        this.p.conectaPorColumnas(x);
     }
 }
