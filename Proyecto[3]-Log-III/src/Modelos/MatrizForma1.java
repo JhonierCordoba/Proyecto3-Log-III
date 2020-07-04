@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class MatrizForma1 {
     private NodoDoble mat;
-
+    
     public MatrizForma1(int m, int n) {
         Tripleta t = new Tripleta(m, n, null);
         this.mat = new NodoDoble(t);
         t.asignaValor(this.mat);
         this.mat.asignaDato(t);
     }
-
+    
     public void contruyeNodosCabeza() {
         Tripleta t = (Tripleta) this.mat.retornaDato();
         int m = t.retornaFila();
@@ -29,7 +29,7 @@ public class MatrizForma1 {
             ultimo = x;
         }
     }
-
+    
     public void conectaPorFilas(NodoDoble x) {
         Tripleta t = (Tripleta) x.retornaDato();
         int f = t.retornaFila();
@@ -57,7 +57,7 @@ public class MatrizForma1 {
         t.asignaFila(f);
         p.asignaDato(t);
     }
-
+    
     public void conectaPorColumnas(NodoDoble x) {
         Tripleta t = (Tripleta) x.retornaDato();
         int f = t.retornaFila();
@@ -85,59 +85,10 @@ public class MatrizForma1 {
         t.asignaColumna(c);
         p.asignaDato(t);
     }
-
-    public void recorrePorFilas() { // Modificado
-        Tripleta t = (Tripleta) this.mat.retornaDato();
-        NodoDoble p = (NodoDoble) t.retornaValor();
-        NodoDoble q;
-        int i = 1;
-        // int f, c;
-        // Object v;
-        while (p != this.mat) {
-            q = p.retornaLD();
-            while (q != p) {
-                t = (Tripleta) q.retornaDato();
-                // f = t.retornaFila();
-                // c = t.retornaColumna();
-                // v = t.retornaValor();
-                // escriba(f, c, v);
-//                escriba(t, i);
-                i++;
-                q = q.retornaLD();
-            }
-            t = (Tripleta) p.retornaDato();
-            p = (NodoDoble) t.retornaValor();
-            i++;
-        }
-    }
-
-    public void recorrePorColumnas() { // Modificado
-        Tripleta t = (Tripleta) this.mat.retornaDato();
-        NodoDoble p = (NodoDoble) t.retornaValor();
-        NodoDoble q;
-        int i = 1;
-        // int f, c;
-        // Object v;
-        while (p != this.mat) {
-            q = p.retornaLI();
-            while (q != p) {
-                t = (Tripleta) q.retornaDato();
-                // f = t.retornaFila();
-                // c = t.retornaColumna();
-                // v = t.retornaValor();
-                // escriba(f, c, v);
-//                escriba(t, i);
-                i++;
-                q = q.retornaLI();
-            }
-            t = (Tripleta) p.retornaDato();
-            p = (NodoDoble) t.retornaValor();
-            i++;
-        }
-    }
-
+    
     // Original
-    public void imprimeMatriz() {
+    public String imprimeMatriz() {
+        String print = "";
         Tripleta t = (Tripleta) this.mat.retornaDato();
         int filas = t.retornaFila();
         int columnas = t.retornaColumna();
@@ -154,7 +105,8 @@ public class MatrizForma1 {
                         cq = t.retornaColumna();
                         if (fq == f && cq == c) {
                             sw = true;
-                            System.out.print(((Tripleta) q.retornaDato()).retornaValor() + "\t");
+//                            System.out.print("1\t");
+                            print += "1\t";
                             break;
                         }
                         q = q.retornaLD();
@@ -164,17 +116,20 @@ public class MatrizForma1 {
                     q = p.retornaLD();
                 }
                 if (!sw) {
-                    System.out.print("0\t");
+//                    System.out.print("0\t");
+                    print += "0\t";
                 }
                 sw = false;
                 t = (Tripleta) p.retornaDato();
                 p = (NodoDoble) t.retornaValor();
                 q = p.retornaLD();
             }
-            System.out.println("");
+//            System.out.println("");
+            print += "\n";
         }
+        return print;
     }
-
+    
     public int retornaNumeroTripletas() {
         int cantidad = 0;
         Tripleta t = (Tripleta) this.mat.retornaDato();
@@ -186,24 +141,24 @@ public class MatrizForma1 {
         }
         return cantidad;
     }
-
+    
     public int retornaNumeroFilas() {
         Tripleta t = (Tripleta) this.mat.retornaDato();
         return t.retornaFila();
     }
-
+    
     public int retornaNumeroColumnas() {
         Tripleta t = (Tripleta) this.mat.retornaDato();
         return t.retornaColumna();
     }
-
+    
     public Tripleta retornaTripleta(int i) {
         Tripleta t = (Tripleta) this.mat.retornaDato();
         NodoDoble p = (NodoDoble) t.retornaValor();
         NodoDoble q = p.retornaLD();
         int k = 0;
         Tripleta tk = null;
-        if(i == 0){
+        if (i == 0) {
             tk = new Tripleta(t.retornaFila(), t.retornaColumna(), 0);
             return tk;
         }
@@ -213,35 +168,35 @@ public class MatrizForma1 {
                 q = q.retornaLD();
                 k++;
             }
-            t = (Tripleta)p.retornaDato();
+            t = (Tripleta) p.retornaDato();
             p = (NodoDoble) t.retornaValor();
             q = p.retornaLD();
         }
         return tk;
     }
-
-    public void borrarDato(int f, int c){
-        if(existe(f,c)){
-        borrarPorFila(f,c);
-        borrarPorColumna(f,c);
+    
+    public void borrarDato(int f, int c) {
+        if (existe(f, c)) {
+            borrarPorFila(f, c);
+            borrarPorColumna(f, c);
         }
     }
-
-    public void borrarPorFila(int f, int c){
-        Tripleta t = (Tripleta)this.mat.retornaDato();
+    
+    public void borrarPorFila(int f, int c) {
+        Tripleta t = (Tripleta) this.mat.retornaDato();
         NodoDoble p = (NodoDoble) t.retornaValor();
         for (int i = 1; i < f; i++) {
-            t = (Tripleta)p.retornaDato();
-            p = (NodoDoble)t.retornaValor();
+            t = (Tripleta) p.retornaDato();
+            p = (NodoDoble) t.retornaValor();
         }
         t = (Tripleta) p.retornaDato();
         t.asignaFila(t.retornaFila() - 1);
         p.asignaDato(t);
         NodoDoble q = p.retornaLD();
         NodoDoble aq = p;
-        while (true){
-            t = (Tripleta)q.retornaDato();
-            if(t.retornaColumna() == c){
+        while (true) {
+            t = (Tripleta) q.retornaDato();
+            if (t.retornaColumna() == c) {
                 break;
             }
             aq = q;
@@ -249,21 +204,21 @@ public class MatrizForma1 {
         }
         aq.asignaLD(q.retornaLD());
     }
-
-    public void borrarPorColumna(int f, int c){
-        Tripleta t = (Tripleta)this.mat.retornaDato();
+    
+    public void borrarPorColumna(int f, int c) {
+        Tripleta t = (Tripleta) this.mat.retornaDato();
         NodoDoble p = (NodoDoble) t.retornaValor();
         for (int i = 1; i < c; i++) {
-            t = (Tripleta)p.retornaDato();
-            p = (NodoDoble)t.retornaValor();
+            t = (Tripleta) p.retornaDato();
+            p = (NodoDoble) t.retornaValor();
         }
         t = (Tripleta) p.retornaDato();
         t.asignaColumna(t.retornaColumna() - 1);
         NodoDoble q = p.retornaLI();
         NodoDoble aq = p;
-        while (true){
-            t = (Tripleta)q.retornaDato();
-            if(t.retornaFila() == f){
+        while (true) {
+            t = (Tripleta) q.retornaDato();
+            if (t.retornaFila() == f) {
                 break;
             }
             aq = q;
@@ -271,8 +226,8 @@ public class MatrizForma1 {
         }
         aq.asignaLI(q.retornaLI());
     }
-
-    public boolean existe(int f, int c){
+    
+    public boolean existe(int f, int c) {
         Tripleta t = (Tripleta) this.mat.retornaDato();
         NodoDoble p = (NodoDoble) t.retornaValor();
         NodoDoble q;
@@ -280,7 +235,7 @@ public class MatrizForma1 {
             q = p.retornaLD();
             while (q != p) {
                 t = (Tripleta) q.retornaDato();
-                if(f == t.retornaFila() && c == t.retornaColumna()){
+                if (f == t.retornaFila() && c == t.retornaColumna()) {
                     return true;
                 }
                 q = q.retornaLD();
@@ -290,7 +245,7 @@ public class MatrizForma1 {
         }
         return false;
     }
-
+    
     public int mayor(int a, int b) {  // Original
         return a > b ? a : b;
     }
