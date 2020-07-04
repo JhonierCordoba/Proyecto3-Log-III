@@ -19,124 +19,124 @@ public class WindowController {
     
     private Storage sg = new Storage();
     @FXML
-    private TextField tfNom_Ma;
+    private TextField tfNom;
     @FXML
-    private TextField tfVert_Ma;
+    private TextField tfVert;
     @FXML
-    private ListView listN_Ma;
+    private ListView listN;
     @FXML
-    private ListView listV_Ma;
+    private ListView listV;
     @FXML
-    private ComboBox cbV1_Ma;
+    private ComboBox cbV1;
     @FXML
-    private ComboBox cbV2_Ma;
+    private ComboBox cbV2;
     
     // OnKeyPressed - open
     
-    public void btnAgregarNombre_Ma(KeyEvent event) {
+    public void btnAgregarNombre(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            this.agregarNombre_Ma();
+            this.agregarNombre();
         }
     }
     
-    public void btnFinaliza_Ma(KeyEvent event) {
+    public void btnFinaliza(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            this.finaliza_Ma();
+            this.finaliza();
         }
     }
     
-    public void btnConectarV_Ma(KeyEvent event) {
+    public void btnConectarV(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            this.conectarV_Ma();
+            this.conectarV();
         }
     }
     
-    public void tfNom_Ma(KeyEvent event) {
+    public void tfNom(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            this.agregarNombre_Ma();
+            this.agregarNombre();
         }
     }
     
-    public void tfVert_Ma(KeyEvent event) {
+    public void tfVert(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            this.agregarVertice_Ma();
+            this.agregarVertice();
         }
     }
     
     // OnKeyPressed - close
     
-    public void agregarNombre_Ma() {
-        if (this.tfNom_Ma.isDisable()) {
-            this.agregarVertice_Ma();
+    public void agregarNombre() {
+        if (this.tfNom.isDisable()) {
+            this.agregarVertice();
             return;
         }
-        if (this.tfNom_Ma.getText().isEmpty()) {
+        if (this.tfNom.getText().isEmpty()) {
             errors(0);
             return;
         }
-        this.tfNom_Ma.setDisable(true);
-        this.tfVert_Ma.setDisable(false);
+        this.tfNom.setDisable(true);
+        this.tfVert.setDisable(false);
         MatrizAdyacente m = new MatrizAdyacente();
         ObservableList<String> vts = FXCollections.observableArrayList();
-        this.sg.save_Ma(this.tfNom_Ma.getText(), m, vts);
-        this.listN_Ma.setItems(this.sg.returnN_Ma());
-        this.listN_Ma.getSelectionModel().select(this.sg.returnN_Ma().size() - 1);
+        this.sg.save(this.tfNom.getText(), m, vts);
+        this.listN.setItems(this.sg.returnN());
+        this.listN.getSelectionModel().select(this.sg.returnN().size() - 1);
     }
     
-    public void agregarVertice_Ma() {
-        if (this.tfVert_Ma.getText().isEmpty()) {
+    public void agregarVertice() {
+        if (this.tfVert.getText().isEmpty()) {
             errors(1);
             return;
         }
-        int pos = this.listN_Ma.getSelectionModel().getSelectedIndex();
-        String vt = this.tfVert_Ma.getText();
-        this.sg.addV_Ma(pos, vt);
-        this.tfVert_Ma.setText("");
-        this.tfVert_Ma.setPromptText("Agregado");
-        this.listV_Ma.setItems(this.sg.returnV_Ma(pos));
+        int pos = this.listN.getSelectionModel().getSelectedIndex();
+        String vt = this.tfVert.getText();
+        this.sg.addV(pos, vt);
+        this.tfVert.setText("");
+        this.tfVert.setPromptText("Agregado");
+        this.listV.setItems(this.sg.returnV(pos));
     }
     
-    public void actualizarVertices_Ma() {
-        this.listV_Ma.setItems(this.sg.returnV_Ma(this.listN_Ma.getSelectionModel().getSelectedIndex()));
-        this.cbV1_Ma.setItems(this.sg.returnV_Ma(this.listN_Ma.getSelectionModel().getSelectedIndex()));
-        this.cbV2_Ma.setItems(this.sg.returnV_Ma(this.listN_Ma.getSelectionModel().getSelectedIndex()));
+    public void actualizarVertices() {
+        this.listV.setItems(this.sg.returnV(this.listN.getSelectionModel().getSelectedIndex()));
+        this.cbV1.setItems(this.sg.returnV(this.listN.getSelectionModel().getSelectedIndex()));
+        this.cbV2.setItems(this.sg.returnV(this.listN.getSelectionModel().getSelectedIndex()));
     }
     
-    public void finaliza_Ma() {
-        if(this.listN_Ma.getSelectionModel().isEmpty()){
+    public void finaliza() {
+        if(this.listN.getSelectionModel().isEmpty()){
             errors(0);
             return;
         }
-        this.tfNom_Ma.setText("");
-        this.tfNom_Ma.setDisable(false);
-        this.tfVert_Ma.setText("");
-        this.tfVert_Ma.setDisable(true);
+        this.tfNom.setText("");
+        this.tfNom.setDisable(false);
+        this.tfVert.setText("");
+        this.tfVert.setDisable(true);
         // Creación de matriz Adyacente
-        int select = this.listN_Ma.getSelectionModel().getSelectedIndex();
-        MatrizAdyacente m = this.sg.return_Ma(select);
-        select = this.sg.returnNV_Ma(select);
-        m.tamaño_Ma(select);
+        int select = this.listN.getSelectionModel().getSelectedIndex();
+        MatrizAdyacente m = this.sg.returnN(select);
+        select = this.sg.returnNV(select);
+        m.tamaño(select);
         System.out.println(select);
         // LLenar los combobox
-        this.cbV1_Ma.setItems(this.listV_Ma.getItems());
-        this.cbV2_Ma.setItems(this.listV_Ma.getItems());
-        this.cbV1_Ma.setDisable(false);
-        this.cbV2_Ma.setDisable(false);
+        this.cbV1.setItems(this.listV.getItems());
+        this.cbV2.setItems(this.listV.getItems());
+        this.cbV1.setDisable(false);
+        this.cbV2.setDisable(false);
     }
     
-    public void conectarV_Ma() {
-        if (this.cbV1_Ma.getSelectionModel().getSelectedIndex() == -1 || this.cbV2_Ma.getSelectionModel().getSelectedIndex() == -1) {
+    public void conectarV() {
+        if (this.cbV1.getSelectionModel().getSelectedIndex() == -1 || this.cbV2.getSelectionModel().getSelectedIndex() == -1) {
             errors(2);
             return;
         }
-        if (this.cbV1_Ma.getSelectionModel().getSelectedIndex() == this.cbV2_Ma.getSelectionModel().getSelectedIndex()) {
+        if (this.cbV1.getSelectionModel().getSelectedIndex() == this.cbV2.getSelectionModel().getSelectedIndex()) {
             errors(3);
             return;
         }
-        int i = this.listN_Ma.getSelectionModel().getSelectedIndex();
-        MatrizAdyacente m = this.sg.return_Ma(i);
-        int a = cbV1_Ma.getSelectionModel().getSelectedIndex();
-        int b = cbV2_Ma.getSelectionModel().getSelectedIndex();
+        int i = this.listN.getSelectionModel().getSelectedIndex();
+        MatrizAdyacente m = this.sg.returnN(i);
+        int a = cbV1.getSelectionModel().getSelectedIndex();
+        int b = cbV2.getSelectionModel().getSelectedIndex();
         m.agregarConexion(a, b);
     }
     

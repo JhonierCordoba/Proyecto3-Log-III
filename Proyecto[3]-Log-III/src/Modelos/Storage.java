@@ -6,44 +6,44 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
 public class Storage {
-    private ObservableList<String> nom_Ma = FXCollections.observableArrayList();
-    private ArrayList<MatrizAdyacente> sg_Ma = new ArrayList<>();
-    private ArrayList<ObservableList> vt_Ma = new ArrayList<>();
+    private ObservableList<String> nom = FXCollections.observableArrayList();
+    private ArrayList<MatrizAdyacente> sg = new ArrayList<>();
+    private ArrayList<ObservableList> vt = new ArrayList<>();
     
-    public void save_Ma(String name, MatrizAdyacente m, ObservableList<String> vts) {
-        nom_Ma.add(name);
-        sg_Ma.add(m);
-        vt_Ma.add(vts);
+    public void save(String name, MatrizAdyacente m, ObservableList<String> vts) {
+        nom.add(name);
+        sg.add(m);
+        vt.add(vts);
     }
     
-    public ObservableList returnN_Ma() {
-        return nom_Ma;
+    public ObservableList returnN() {
+        return nom;
     }
     
-    public ObservableList returnV_Ma(int i) {
-        return this.vt_Ma.get(i);
+    public ObservableList returnV(int i) {
+        return this.vt.get(i);
     }
     
-    public Integer search_Ma(String nom) {
+    public Integer search(String pName) {
         int i = -1;
-        for (String name:nom_Ma) {
+        for (String name:nom) {
             i++;
-            if(name.equals(nom)){
+            if(name.equals(pName)){
                 return i;
             }
         }
         return null;
     }
 
-    public MatrizAdyacente return_Ma(int i){
-        return this.sg_Ma.get(i);
+    public MatrizAdyacente returnN(int i){
+        return this.sg.get(i);
     }
 
-    public int returnNV_Ma(int i){
-        return this.vt_Ma.get(i).size();
+    public int returnNV(int i){
+        return this.vt.get(i).size();
     }
 
-    public void addV_Ma(int i,String vt){
-        this.vt_Ma.get(i).add(vt);
+    public void addV(int i,String vt){
+        this.vt.get(i).add(vt);
     }
 }
