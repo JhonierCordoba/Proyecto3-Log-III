@@ -39,11 +39,11 @@ public class WindowController {
         }
     }
     
-    public void btnFinaliza(KeyEvent event) {
+    /*public void btnFinaliza(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             this.finaliza();
         }
-    }
+    }*/
     
     public void btnConectarV(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
@@ -66,10 +66,6 @@ public class WindowController {
     // OnKeyPressed - close
     
     public void agregarNombre() {
-        if (this.tfNom.isDisable()) {
-            this.agregarVertice();
-            return;
-        }
         if (this.tfNom.getText().isEmpty()) {
             errors(0);
             return;
@@ -81,6 +77,7 @@ public class WindowController {
         this.sg.save(this.tfNom.getText(), m, vts);
         this.listN.setItems(this.sg.returnN());
         this.listN.getSelectionModel().select(this.sg.returnN().size() - 1);
+        agregarVertice();
     }
     
     public void agregarVertice() {
@@ -88,21 +85,25 @@ public class WindowController {
             errors(1);
             return;
         }
-        int pos = this.listN.getSelectionModel().getSelectedIndex();
-        String vt = this.tfVert.getText();
-        this.sg.addV(pos, vt);
-        this.tfVert.setText("");
-        this.tfVert.setPromptText("Agregado");
-        this.listV.setItems(this.sg.returnV(pos));
+        try {
+            int pos = this.listN.getSelectionModel().getSelectedIndex();
+            String vt = this.tfVert.getText();
+            this.sg.addV(pos, vt);
+            this.tfVert.setText("");
+            this.tfVert.setPromptText("Agregado");
+            this.listV.setItems(this.sg.returnV(pos));
+        } catch (Exception e){
+            errors(4);
+        }
     }
     
-    public void actualizarVertices() {
+    /*public void actualizarVertices() {
         this.listV.setItems(this.sg.returnV(this.listN.getSelectionModel().getSelectedIndex()));
         this.cbV1.setItems(this.sg.returnV(this.listN.getSelectionModel().getSelectedIndex()));
         this.cbV2.setItems(this.sg.returnV(this.listN.getSelectionModel().getSelectedIndex()));
-    }
+    }*/
     
-    public void finaliza() {
+    /*public void finaliza() {
         if(this.listN.getSelectionModel().isEmpty()){
             errors(0);
             return;
@@ -122,7 +123,7 @@ public class WindowController {
         this.cbV2.setItems(this.listV.getItems());
         this.cbV1.setDisable(false);
         this.cbV2.setDisable(false);
-    }
+    }*/
     
     public void conectarV() {
         if (this.cbV1.getSelectionModel().getSelectedIndex() == -1 || this.cbV2.getSelectionModel().getSelectedIndex() == -1) {
