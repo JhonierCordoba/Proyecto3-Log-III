@@ -144,7 +144,7 @@ public class WindowController {
     /**
      * Errores de la aplicación
      *
-     * @param tipo 0: Nombre vacío, 1: Vértices vacíos, 2: Faltan vértices, 3: Mismo vértice
+     * @param tipo 0: Nombre vacío, 1: Vértices vacíos, 2: Faltan vértices, 3: Mismo vértice, 4: No numérico
      */
     public void errors(int tipo) {
         String message = "error";
@@ -163,6 +163,10 @@ public class WindowController {
             }
             case 3: {
                 message = "No se permiten loops en las matrices";
+                break;
+            }
+            case 4: {
+                message = "El número de vértices debe ser un entero positivo";
                 break;
             }
         }
