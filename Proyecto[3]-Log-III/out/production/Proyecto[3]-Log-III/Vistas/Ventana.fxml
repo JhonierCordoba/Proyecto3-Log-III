@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -30,7 +29,7 @@
                                        </font>
                                     </Label>
                                     <Label layoutX="66.0" layoutY="69.0" text="Nombre:" />
-                                    <Label layoutX="70.0" layoutY="100.0" text="Vértice:" />
+                                    <Label layoutX="15.0" layoutY="100.0" text="Número de vértices:" />
                                     <Label layoutX="300.0" layoutY="39.0" text="Nombre">
                                        <font>
                                           <Font name="Segoe UI Bold" size="20.0" />
@@ -41,133 +40,22 @@
                                           <Font name="Segoe UI Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="67.0" layoutY="186.0" text="Vértices:" />
-                                    <Separator layoutX="14.0" layoutY="170.0" prefHeight="0.0" prefWidth="252.0" />
-                                    <TextField fx:id="tfNom_Ma" layoutX="123.0" layoutY="65.0" onKeyPressed="#tfNom_Ma" promptText="Matrix" />
-                                    <Button layoutX="202.0" layoutY="96.0" mnemonicParsing="false" onKeyPressed="#btnAgregarNombre_Ma" onMouseClicked="#agregarNombre_Ma" prefHeight="25.0" prefWidth="69.0" text="Agregar" />
-                                    <TextField fx:id="tfVert_Ma" disable="true" layoutX="123.0" layoutY="96.0" onKeyPressed="#tfVert_Ma" prefHeight="25.0" prefWidth="72.0" promptText="1" />
-                                    <Button layoutX="124.0" layoutY="128.0" mnemonicParsing="false" onKeyPressed="#btnFinaliza_Ma" onMouseClicked="#finaliza_Ma" prefHeight="25.0" prefWidth="148.0" text="Finalizar" />
-                                    <ComboBox fx:id="cbV1_Ma" disable="true" layoutX="128.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
-                                    <ComboBox fx:id="cbV2_Ma" disable="true" layoutX="206.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
-                                    <Button layoutX="127.0" layoutY="218.0" mnemonicParsing="false" onKeyPressed="#btnConectarV_Ma" onMouseClicked="#conectarV_Ma" prefHeight="25.0" prefWidth="143.0" text="Conectar" />
-                                    <ListView fx:id="listN_Ma" layoutX="300.0" layoutY="65.0" onMouseClicked="#actualizarVertices_Ma" prefHeight="200.0" prefWidth="122.0" />
-                                    <ListView fx:id="listV_Ma" layoutX="428.0" layoutY="65.0" prefHeight="200.0" prefWidth="131.0" />
+                                    <Label layoutX="79.0" layoutY="155.0" text="Lados:" />
+                                    <Separator layoutX="14.0" layoutY="138.0" prefHeight="4.0" prefWidth="258.0" />
+                                    <TextField fx:id="tfNom" layoutX="123.0" layoutY="65.0" onKeyPressed="#tfNom" promptText="Ej: Matrix" />
+                                    <Button layoutX="202.0" layoutY="96.0" mnemonicParsing="false" onKeyPressed="#btnAgregarNombre" onMouseClicked="#agregarNombre" prefHeight="25.0" prefWidth="69.0" text="Agregar" />
+                                    <TextField fx:id="tfVert" layoutX="123.0" layoutY="96.0" onKeyPressed="#tfVert" prefHeight="25.0" prefWidth="72.0" promptText="Ej: 7" />
+                                    <ComboBox fx:id="cbV1" disable="true" layoutX="123.0" layoutY="153.0" prefHeight="25.0" prefWidth="71.0" />
+                                    <ComboBox fx:id="cbV2" disable="true" layoutX="201.0" layoutY="153.0" prefHeight="25.0" prefWidth="72.0" />
+                                    <Button layoutX="202.0" layoutY="187.0" mnemonicParsing="false" onKeyPressed="#btnConectarV" onMouseClicked="#conectarV" prefHeight="25.0" prefWidth="70.0" text="Conectar" />
+                                    <ListView fx:id="listN" layoutX="300.0" layoutY="65.0" onMouseClicked="#actualizarVertices" prefHeight="200.0" prefWidth="122.0" />
+                                    <ListView fx:id="listV" layoutX="428.0" layoutY="65.0" prefHeight="200.0" prefWidth="131.0" />
+                                    <TextField fx:id="tfVert1" layoutX="123.0" layoutY="187.0" onKeyPressed="#tfVert" prefHeight="25.0" prefWidth="72.0" promptText="Ej: 29" />
+                                    <Label layoutX="79.0" layoutY="191.0" text="Precio:" />
                                  </children>
                               </AnchorPane>
                            </content>
                       </Tab>
-                        <Tab text="Listas Ligadas de Adyacencia">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <Label layoutX="14.0" layoutY="14.0" text="CREACIÓN">
-                                       <font>
-                                          <Font name="Segoe UI Bold" size="30.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="66.0" layoutY="69.0" text="Nombre:" />
-                                    <Label layoutX="70.0" layoutY="100.0" text="Vértice:" />
-                                    <Label layoutX="300.0" layoutY="39.0" text="Nombre">
-                                       <font>
-                                          <Font name="Segoe UI Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="428.0" layoutY="39.0" text="Vértices">
-                                       <font>
-                                          <Font name="Segoe UI Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="67.0" layoutY="186.0" text="Vértices:" />
-                                    <Separator layoutX="14.0" layoutY="170.0" prefHeight="0.0" prefWidth="252.0" />
-                                    <TextField fx:id="tfNom_Ma1" layoutX="123.0" layoutY="65.0" onKeyPressed="#tfNom_Ma" promptText="Matrix" />
-                                    <Button layoutX="202.0" layoutY="96.0" mnemonicParsing="false" onKeyPressed="#btnAgregarNombre_Ma" onMouseClicked="#agregarNombre_Ma" prefHeight="25.0" prefWidth="69.0" text="Agregar" />
-                                    <TextField fx:id="tfVert_Ma1" disable="true" layoutX="123.0" layoutY="96.0" onKeyPressed="#tfVert_Ma" prefHeight="25.0" prefWidth="72.0" promptText="1" />
-                                    <Button layoutX="124.0" layoutY="128.0" mnemonicParsing="false" onKeyPressed="#btnFinaliza_Ma" onMouseClicked="#finaliza_Ma" prefHeight="25.0" prefWidth="148.0" text="Finalizar" />
-                                    <ComboBox fx:id="cbV1_Ma1" disable="true" layoutX="128.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
-                                    <ComboBox fx:id="cbV2_Ma1" disable="true" layoutX="206.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
-                                    <Button layoutX="127.0" layoutY="218.0" mnemonicParsing="false" onKeyPressed="#btnConectarV_Ma" onMouseClicked="#conectarV_Ma" prefHeight="25.0" prefWidth="143.0" text="Conectar" />
-                                    <ListView fx:id="listN_Ma1" layoutX="300.0" layoutY="65.0" onMouseClicked="#actualizarVertices_Ma" prefHeight="200.0" prefWidth="122.0" />
-                                    <ListView fx:id="listV_Ma1" layoutX="428.0" layoutY="65.0" prefHeight="200.0" prefWidth="131.0" />
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
-                        <Tab text="Multilistas de Adyacencia">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <Label layoutX="14.0" layoutY="14.0" text="CREACIÓN">
-                                       <font>
-                                          <Font name="Segoe UI Bold" size="30.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="66.0" layoutY="69.0" text="Nombre:" />
-                                    <Label layoutX="70.0" layoutY="100.0" text="Vértice:" />
-                                    <Label layoutX="300.0" layoutY="39.0" text="Nombre">
-                                       <font>
-                                          <Font name="Segoe UI Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="428.0" layoutY="39.0" text="Vértices">
-                                       <font>
-                                          <Font name="Segoe UI Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="67.0" layoutY="186.0" text="Vértices:" />
-                                    <Separator layoutX="14.0" layoutY="170.0" prefHeight="0.0" prefWidth="252.0" />
-                                    <TextField fx:id="tfNom_Ma2" layoutX="123.0" layoutY="65.0" onKeyPressed="#tfNom_Ma" promptText="Matrix" />
-                                    <Button layoutX="202.0" layoutY="96.0" mnemonicParsing="false" onKeyPressed="#btnAgregarNombre_Ma" onMouseClicked="#agregarNombre_Ma" prefHeight="25.0" prefWidth="69.0" text="Agregar" />
-                                    <TextField fx:id="tfVert_Ma2" disable="true" layoutX="123.0" layoutY="96.0" onKeyPressed="#tfVert_Ma" prefHeight="25.0" prefWidth="72.0" promptText="1" />
-                                    <Button layoutX="124.0" layoutY="128.0" mnemonicParsing="false" onKeyPressed="#btnFinaliza_Ma" onMouseClicked="#finaliza_Ma" prefHeight="25.0" prefWidth="148.0" text="Finalizar" />
-                                    <ComboBox fx:id="cbV1_Ma2" disable="true" layoutX="128.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
-                                    <ComboBox fx:id="cbV2_Ma2" disable="true" layoutX="206.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
-                                    <Button layoutX="127.0" layoutY="218.0" mnemonicParsing="false" onKeyPressed="#btnConectarV_Ma" onMouseClicked="#conectarV_Ma" prefHeight="25.0" prefWidth="143.0" text="Conectar" />
-                                    <ListView fx:id="listN_Ma2" layoutX="300.0" layoutY="65.0" onMouseClicked="#actualizarVertices_Ma" prefHeight="200.0" prefWidth="122.0" />
-                                    <ListView fx:id="listV_Ma2" layoutX="428.0" layoutY="65.0" prefHeight="200.0" prefWidth="131.0" />
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
-                        <Tab text="Matriz de Incidencia">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <Label layoutX="14.0" layoutY="14.0" text="CREACIÓN">
-                                       <font>
-                                          <Font name="Segoe UI Bold" size="30.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="66.0" layoutY="69.0" text="Nombre:" />
-                                    <Label layoutX="70.0" layoutY="100.0" text="Vértice:" />
-                                    <Label layoutX="300.0" layoutY="39.0" text="Nombre">
-                                       <font>
-                                          <Font name="Segoe UI Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="428.0" layoutY="39.0" text="Vértices">
-                                       <font>
-                                          <Font name="Segoe UI Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="67.0" layoutY="186.0" text="Vértices:" />
-                                    <Separator layoutX="14.0" layoutY="170.0" prefHeight="0.0" prefWidth="252.0" />
-                                    <TextField fx:id="tfNom_Ma3" layoutX="123.0" layoutY="65.0" onKeyPressed="#tfNom_Ma" promptText="Matrix" />
-                                    <Button layoutX="202.0" layoutY="96.0" mnemonicParsing="false" onKeyPressed="#btnAgregarNombre_Ma" onMouseClicked="#agregarNombre_Ma" prefHeight="25.0" prefWidth="69.0" text="Agregar" />
-                                    <TextField fx:id="tfVert_Ma3" disable="true" layoutX="123.0" layoutY="96.0" onKeyPressed="#tfVert_Ma" prefHeight="25.0" prefWidth="72.0" promptText="1" />
-                                    <Button layoutX="124.0" layoutY="128.0" mnemonicParsing="false" onKeyPressed="#btnFinaliza_Ma" onMouseClicked="#finaliza_Ma" prefHeight="25.0" prefWidth="148.0" text="Finalizar">
-                                       <effect>
-                                          <Bloom threshold="0.88" />
-                                       </effect>
-                                    </Button>
-                                    <ComboBox fx:id="cbV1_Ma3" disable="true" layoutX="128.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
-                                    <ComboBox fx:id="cbV2_Ma3" disable="true" layoutX="206.0" layoutY="182.0" prefHeight="25.0" prefWidth="62.0" />
-                                    <Button layoutX="127.0" layoutY="218.0" mnemonicParsing="false" onKeyPressed="#btnConectarV_Ma" onMouseClicked="#conectarV_Ma" prefHeight="25.0" prefWidth="143.0" text="Conectar" />
-                                    <ListView fx:id="listN_Ma3" layoutX="300.0" layoutY="65.0" onMouseClicked="#actualizarVertices_Ma" prefHeight="200.0" prefWidth="122.0" />
-                                    <ListView fx:id="listV_Ma3" layoutX="428.0" layoutY="65.0" prefHeight="200.0" prefWidth="131.0" />
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
                     </tabs>
                   </TabPane>
                </content>
