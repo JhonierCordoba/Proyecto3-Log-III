@@ -14,7 +14,7 @@ public class MatrizAdyacente {
         this.m[j][i] = 1;
     }
 
-    public void tamaño_Ma(int n){
+    public void tamaño(int n){
         this.m = new int[n][n];
     }
 }
