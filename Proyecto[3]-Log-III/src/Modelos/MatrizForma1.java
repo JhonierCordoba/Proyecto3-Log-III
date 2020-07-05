@@ -30,6 +30,36 @@ public class MatrizForma1 {
         }
     }
     
+    public void agregarNodoCabeza() {
+        NodoDoble ultimo = (NodoDoble) ((Tripleta) this.mat.retornaDato()).retornaValor();
+        while ((NodoDoble) ((Tripleta) ultimo.retornaDato()).retornaValor() != this.mat) {
+            ultimo = (NodoDoble) ((Tripleta) ultimo.retornaDato()).retornaValor();
+        }
+        Tripleta t = new Tripleta(0, 0, this.mat);
+        NodoDoble x = new NodoDoble(t);
+        x.asignaLD(x);
+        x.asignaLI(x);
+        t = (Tripleta) ultimo.retornaDato();
+        t.asignaValor(x);
+        ultimo.asignaDato(t);
+        t = (Tripleta) this.mat.retornaDato();
+        t.asignaFila(t.retornaFila() + 1);
+        t.asignaColumna(t.retornaColumna() + 1);
+    }
+    
+    public void eliminarNodoCabeza(){
+        NodoDoble anterior = this.mat;
+        NodoDoble ultimo = (NodoDoble) ((Tripleta) this.mat.retornaDato()).retornaValor();
+        while ((NodoDoble) ((Tripleta) ultimo.retornaDato()).retornaValor() != this.mat) {
+            anterior = ultimo;
+            ultimo = (NodoDoble) ((Tripleta) ultimo.retornaDato()).retornaValor();
+        }
+        Tripleta t = (Tripleta) anterior.retornaDato();
+        t.asignaValor(this.mat);
+        t.asignaFila(t.retornaFila() - 1);
+        t.asignaColumna(t.retornaColumna() - 1);
+    }
+    
     public void conectaPorFilas(NodoDoble x) {
         Tripleta t = (Tripleta) x.retornaDato();
         int f = t.retornaFila();
