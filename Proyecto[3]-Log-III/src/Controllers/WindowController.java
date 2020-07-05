@@ -31,13 +31,11 @@ public class WindowController {
     @FXML
     private TextField tfAgregarVert;
     @FXML
-    private TextField tfEliminarVert;
-    @FXML
-    private TextField tfInicio;
-    @FXML
     private TextArea taMostrar;
     @FXML
     private TextArea taRecorrer;
+    @FXML
+    private TextArea taOperaciones;
     @FXML
     private ListView listN;
     @FXML
@@ -58,6 +56,8 @@ public class WindowController {
     private ComboBox cbV1_1;
     @FXML
     private ComboBox cbV2_1;
+    @FXML
+    private ComboBox cbInicio;
     
     // OnKeyPressed - open
     
@@ -130,6 +130,10 @@ public class WindowController {
         this.cbV2_1.getSelectionModel().clearSelection();
     }
     
+    public void actualizarVertices_2() {
+        this.cbInicio.setItems(this.sg.returnV(this.listN_3.getSelectionModel().getSelectedIndex()));
+    }
+    
     public void conectarV() {
         if (!this.restricciones(1)) {
             return;
@@ -151,9 +155,12 @@ public class WindowController {
     }
     
     public void DFS() {
+        if (!this.restricciones(4)) {
+            return;
+        }
         int select = this.listN_3.getSelectionModel().getSelectedIndex();
         MatrizAdyacente m = this.sg.returnM(select);
-        int d = Integer.parseInt(tfInicio.getText());
+        int d = (int) this.cbInicio.getSelectionModel().getSelectedItem();
         int select2 = this.sg.searchV(d, select);
         ArrayList<Integer> o = m.DFS(select2 + 1);
         String pv = "";
@@ -166,10 +173,12 @@ public class WindowController {
     }
     
     public void BFS() {
+        if (!this.restricciones(4)) {
+            return;
+        }
         int select = this.listN_3.getSelectionModel().getSelectedIndex();
         MatrizAdyacente m = this.sg.returnM(select);
-        int d = Integer.parseInt(tfInicio.getText());
-        int select2 = this.sg.searchV(d, select);
+        int select2 = this.cbInicio.getSelectionModel().getSelectedIndex();
         ArrayList<Integer> o = m.BFS(select2 + 1);
         String pv = "";
         ArrayList lq = this.sg.returnVts();
@@ -206,19 +215,36 @@ public class WindowController {
         this.actualizarVertices();
     }
     
-    public void eliminarLado(){
+    public void eliminarLado() {
+        if(!this.restricciones(5)){
+            return;
+        }
         int select = this.listN_1.getSelectionModel().getSelectedIndex();
         MatrizAdyacente m = this.sg.returnM(select);
         int a = this.cbV1_1.getSelectionModel().getSelectedIndex() + 1;
         int b = this.cbV2_1.getSelectionModel().getSelectedIndex() + 1;
-        m.retornaM1().eliminarLado(a,b);
+        m.retornaM1().eliminarLado(a, b);
         actualizarVertices_1();
+    }
+    
+    public void esLibre(){
+        if(!restricciones(6)){
+            return;
+        }
+        this.taOperaciones.setText("No szs");
+    }
+    
+    public void articulacion(){
+        if(!restricciones(6)){
+            return;
+        }
+        this.taOperaciones.setText("1 2 3 4 No szs");
     }
     
     /**
      * Restricciones de la aplicación
      *
-     * @param tipo 0: Crear, 1: Conectar, 2: Agregar
+     * @param tipo 0: Crear, 1: Conectar, 2: Agregar, 3: Selección-listV_1, 4: Selección-cbInicio, 5: Eliminar Lado
      */
     public Boolean restricciones(int tipo) {
         switch (tipo) {
@@ -272,29 +298,49 @@ public class WindowController {
             }
             case 2: {
                 if (this.listN_1.getSelectionModel().getSelectedIndex() == -1) {
-                    errors(6);
+                    errors(7);
                     return false;
                 }
                 if (this.tfAgregarVert.getText().isEmpty()) {
-                    errors(1);
+                    errors(9);
                     return false;
                 }
-                int n;
                 try {
-                    n = Integer.parseInt(this.tfAgregarVert.getText());
+                    int n = Integer.parseInt(this.tfAgregarVert.getText());
                 } catch (NumberFormatException exception) {
-                    errors(4);
-                    return false;
-                }
-                if (n < 0) {
-                    errors(4);
+                    errors(10);
                     return false;
                 }
                 break;
             }
             case 3: {
                 if (this.listV_1.getSelectionModel().getSelectedIndex() == -1) {
-                    errors(6);
+                    errors(7);
+                    return false;
+                }
+                break;
+            }
+            case 4: {
+                if (this.cbInicio.getSelectionModel().getSelectedIndex() == -1) {
+                    errors(8);
+                    return false;
+                }
+                break;
+            }
+            case 5: {
+                if (this.listN_1.getSelectionModel().getSelectedIndex() == -1) {
+                    errors(7);
+                    return false;
+                }
+                if (this.cbV1_1.getSelectionModel().getSelectedIndex() == -1 || this.cbV2_1.getSelectionModel().getSelectedIndex() == -1) {
+                    errors(2);
+                    return false;
+                }
+                break;
+            }
+            case 6: {
+                if (this.listN_1.getSelectionModel().getSelectedIndex() == -1) {
+                    errors(7);
                     return false;
                 }
                 break;
@@ -306,7 +352,7 @@ public class WindowController {
     /**
      * Errores de la aplicación
      *
-     * @param tipo 0: Nombre vacío, 1: Vértices vacíos, 2: Faltan vértices, 3: Mismo vértice, 4: No numérico positivo, 5: Sin Precio, 6: Formato Precio, 7: Sin Selección
+     * @param tipo 0: Sin nombre, 1: Vértices vacíos, 2: Faltan vértices, 3: Mismo vértice, 4: Formato vértices, 5: Sin Precio, 6: Formato Precio, 7: Sin Selección, 8: Sin Inicio, 9: Sin vértice, 10: Formato Vértice
      */
     public void errors(int tipo) {
         String message = "error";
@@ -316,7 +362,7 @@ public class WindowController {
                 break;
             }
             case 1: {
-                message = "No se admiten vértices vacíos";
+                message = "Falta el número de vértices";
                 break;
             }
             case 2: {
@@ -337,9 +383,23 @@ public class WindowController {
             }
             case 6: {
                 message = "El precio debe ser un entero positivo";
+                break;
             }
             case 7: {
                 message = "No se ha seleccionado ningún elemento";
+                break;
+            }
+            case 8: {
+                message = "Seleccione la posición inicial";
+                break;
+            }
+            case 9:{
+                message = "Ingrese un vértice";
+                break;
+            }
+            case 10:{
+                message = "El vértice debe ser un entero";
+                break;
             }
         }
         JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
