@@ -142,12 +142,13 @@ public class WindowController {
         int select = this.listN_3.getSelectionModel().getSelectedIndex();
         MatrizAdyacente m = this.sg.returnM(select);
         int d = Integer.parseInt(tfInicio.getText());
-        select = this.sg.searchV(d, select);
-        ArrayList<Integer> o = m.DFS(select);
+        int select2 = this.sg.searchV(d, select);
+        ArrayList<Integer> o = m.DFS(select2 + 1);
         String pv = "";
-        ObservableList lv = (ObservableList) this.sg.returnVts().get(select);
+        ArrayList lq = this.sg.returnVts();
+        ObservableList lv = (ObservableList) lq.get(select);
         for (Integer ent : o) {
-            pv += lv.get(ent) + " ";
+            pv += lv.get(ent - 1) + " ";
         }
         this.taRecorrer.setText(pv);
     }
@@ -156,12 +157,13 @@ public class WindowController {
         int select = this.listN_3.getSelectionModel().getSelectedIndex();
         MatrizAdyacente m = this.sg.returnM(select);
         int d = Integer.parseInt(tfInicio.getText());
-        select = this.sg.searchV(d, select);
-        ArrayList<Integer> o = m.DFS(select);
+        int select2 = this.sg.searchV(d, select);
+        ArrayList<Integer> o = m.BFS(select2 + 1);
         String pv = "";
-        ObservableList lv = (ObservableList) this.sg.returnVts().get(select);
-        for (int ent = o.size() - 1; ent >= 0; ent--) {
-            pv += lv.get(ent) + " ";
+        ArrayList lq = this.sg.returnVts();
+        ObservableList lv = (ObservableList) lq.get(select);
+        for (int ent = o.size(); ent > 0; ent--) {
+            pv += lv.get(o.get(ent - 1) - 1) + " ";
         }
         this.taRecorrer.setText(pv);
     }

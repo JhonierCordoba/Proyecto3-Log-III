@@ -307,19 +307,21 @@ public class MatrizForma1 {
         return l;
     }
 
-    public ArrayList BFS(int v, ArrayList<Integer> l){
+    public ArrayList BFS(int v, ArrayList<Integer> l, ArrayList<Integer> o){
         System.out.println(v);
         l.add(v);
+        o.add(v);
         while(!l.isEmpty()) {
             v = l.remove(l.size() - 1);
             ArrayList<Integer> j = adyacentes(v);
             for (Integer vertice : j) {
-                if (!l.contains(vertice))
+                if (!o.contains(vertice)) {
                     l.add(vertice);
-                    BFS(vertice, l);
+                    BFS(vertice, l, o);
+                }
             }
         }
-        return l;
+        return o;
     }
     
     public int mayor(int a, int b) {  // Original
