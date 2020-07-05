@@ -30,7 +30,7 @@
                                        </font>
                                     </Label>
                                     <Label layoutX="66.0" layoutY="69.0" text="Nombre:" />
-                                    <Label layoutX="15.0" layoutY="100.0" text="Número de vértices:" />
+                                    <Label layoutX="6.0" layoutY="100.0" text="Número de vértices:" />
                                     <Label layoutX="300.0" layoutY="39.0" text="Nombre">
                                        <font>
                                           <Font name="Segoe UI Bold" size="20.0" />
@@ -52,21 +52,21 @@
                                     <ListView fx:id="listN" layoutX="300.0" layoutY="65.0" onMouseClicked="#actualizarVertices" prefHeight="200.0" prefWidth="122.0" />
                                     <ListView fx:id="listV" layoutX="428.0" layoutY="65.0" prefHeight="200.0" prefWidth="131.0" />
                                     <TextField fx:id="tfPrice" layoutX="123.0" layoutY="218.0" onKeyPressed="#tfVert" prefHeight="25.0" prefWidth="72.0" promptText="Ej: 29" />
-                                    <Label layoutX="79.0" layoutY="222.0" text="Precio:" />
+                                    <Label layoutX="77.0" layoutY="222.0" text="Precio:" />
                                     <Separator layoutX="14.0" layoutY="265.0" prefHeight="4.0" prefWidth="258.0" />
-                                    <Label layoutX="141.0" layoutY="161.0" text="Primer" />
+                                    <Label layoutX="137.0" layoutY="161.0" text="Primero" />
                                     <Label layoutX="213.0" layoutY="161.0" text="Segundo" />
                                     <Label layoutX="67.0" layoutY="161.0" text="Vértices:" />
                                  </children>
                               </AnchorPane>
                            </content>
                       </Tab>
-                        <Tab text="Editar">
+                        <Tab text="Operaciones">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Button defaultButton="true" layoutX="425.0" layoutY="57.0" mnemonicParsing="false" onMouseClicked="#agregarVertice" prefHeight="25.0" prefWidth="149.0" text="Agregar Nuevo Vértice" />
-                                    <Button layoutX="327.0" layoutY="144.0" mnemonicParsing="false" onMouseClicked="#eliminarVertice" prefHeight="27.0" prefWidth="247.0" style="-fx-background-color: #D62F31; -fx-text-fill: #ffffff; -fx-border-color: #000000;" text="Eliminar Vértice" />
+                                    <Button defaultButton="true" layoutX="417.0" layoutY="57.0" mnemonicParsing="false" onMouseClicked="#agregarVertice" prefHeight="25.0" prefWidth="157.0" text="Agregar Nuevo Vértice" />
+                                    <Button layoutX="313.0" layoutY="144.0" mnemonicParsing="false" onMouseClicked="#eliminarVertice" prefHeight="27.0" prefWidth="261.0" style="-fx-background-color: #D62F31; -fx-text-fill: #ffffff; -fx-border-color: #000000;" text="Eliminar Vértice" />
                                     <Label layoutX="100.0" layoutY="162.0" text="Vértice:" />
                                     <Label layoutX="27.0" layoutY="26.0" text="Nombre">
                                        <font>
@@ -80,10 +80,13 @@
                                     </Label>
                                     <ListView fx:id="listN_1" layoutX="27.0" layoutY="57.0" onMouseClicked="#actualizarVertices_1" prefHeight="269.0" prefWidth="122.0" />
                                     <ListView fx:id="listV_1" layoutX="160.0" layoutY="57.0" prefHeight="268.0" prefWidth="131.0" />
-                                    <TextField fx:id="tfAgregarVert" layoutX="327.0" layoutY="57.0" prefHeight="25.0" prefWidth="86.0" promptText="Ej: 4" />
-                                    <Button layoutX="467.0" layoutY="97.0" mnemonicParsing="false" onMouseClicked="#eliminarLado" prefHeight="27.0" prefWidth="106.0" style="-fx-background-color: #D62F31; -fx-text-fill: #ffffff; -fx-border-color: #000000;" text="Eliminar Lado" />
-                                    <ComboBox fx:id="cbV1_1" layoutX="327.0" layoutY="98.0" prefHeight="25.0" prefWidth="61.0" />
-                                    <ComboBox fx:id="cbV2_1" layoutX="396.0" layoutY="98.0" prefHeight="25.0" prefWidth="61.0" />
+                                    <TextField fx:id="tfAgregarVert" layoutX="314.0" layoutY="57.0" prefHeight="25.0" prefWidth="86.0" promptText="Ej: 4" />
+                                    <Button layoutX="460.0" layoutY="97.0" mnemonicParsing="false" onMouseClicked="#eliminarLado" prefHeight="27.0" prefWidth="113.0" style="-fx-background-color: #D62F31; -fx-text-fill: #ffffff; -fx-border-color: #000000;" text="Eliminar Lado" />
+                                    <ComboBox fx:id="cbV1_1" layoutX="314.0" layoutY="98.0" prefHeight="25.0" prefWidth="61.0" />
+                                    <ComboBox fx:id="cbV2_1" layoutX="383.0" layoutY="98.0" prefHeight="25.0" prefWidth="61.0" />
+                                    <Button layoutX="314.0" layoutY="191.0" mnemonicParsing="false" onMouseClicked="#esLibre" prefHeight="25.0" prefWidth="112.0" text="¿Es un árbol libre?" />
+                                    <Button layoutX="439.0" layoutY="191.0" mnemonicParsing="false" onMouseClicked="#articulacion" prefHeight="25.0" prefWidth="134.0" text="Puntos de articulación" />
+                                    <TextArea fx:id="taOperaciones" layoutX="315.0" layoutY="227.0" prefHeight="98.0" prefWidth="256.0" />
                                  </children>
                               </AnchorPane>
                           </content>
@@ -112,12 +115,12 @@
                                           <Font name="Segoe UI Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <ListView fx:id="listN_3" layoutX="14.0" layoutY="37.0" onMouseClicked="#actualizarMuestra" prefHeight="247.0" prefWidth="122.0" />
+                                    <ListView fx:id="listN_3" layoutX="14.0" layoutY="37.0" onMouseClicked="#actualizarVertices_2" prefHeight="247.0" prefWidth="122.0" />
                                     <Button layoutX="14.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#DFS" prefHeight="25.0" prefWidth="58.0" text="DFS" />
                                     <Button layoutX="78.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#BFS" prefHeight="25.0" prefWidth="58.0" text="BFS" />
                                     <TextArea fx:id="taRecorrer" layoutX="146.0" layoutY="37.0" prefHeight="247.0" prefWidth="446.0" />
-                                    <TextField fx:id="tfInicio" layoutX="506.0" layoutY="296.0" prefHeight="25.0" prefWidth="80.0" />
-                                    <Label layoutX="397.0" layoutY="300.0" text="Posición de inicio:" />
+                                    <Label layoutX="400.0" layoutY="300.0" text="Posición de inicio:" />
+                                    <ComboBox fx:id="cbInicio" layoutX="510.0" layoutY="296.0" prefHeight="25.0" prefWidth="76.0" />
                                  </children>
                               </AnchorPane>
                           </content>
