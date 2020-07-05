@@ -58,8 +58,6 @@ public class WindowController {
     private ComboBox cbV1_1;
     @FXML
     private ComboBox cbV2_1;
-    @FXML
-    private ImageView image;
     
     // OnKeyPressed - open
     
@@ -89,9 +87,6 @@ public class WindowController {
     
     // OnKeyPressed - close
     
-    public void egg(){
-    image.setImage(new Image("Vistas/img/Captura(76).png"));
-    }
     public void agregar() {
         if (!this.restricciones(0)) {
             return;
