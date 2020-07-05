@@ -40,8 +40,8 @@ public class MatrizAdyacente {
 
     public ArrayList BFS(int v){
         ArrayList<Integer> l = new ArrayList<>();
-        ArrayList<Integer> o;
-        o = this.p.DFS(v, l);
+        ArrayList<Integer> o = new ArrayList<>();
+        o = this.p.BFS(v, l, o);
         return o;
     }
 }

@@ -30,6 +30,36 @@ public class MatrizForma1 {
         }
     }
     
+    public void agregarNodoCabeza() {
+        NodoDoble ultimo = (NodoDoble) ((Tripleta) this.mat.retornaDato()).retornaValor();
+        while ((NodoDoble) ((Tripleta) ultimo.retornaDato()).retornaValor() != this.mat) {
+            ultimo = (NodoDoble) ((Tripleta) ultimo.retornaDato()).retornaValor();
+        }
+        Tripleta t = new Tripleta(0, 0, this.mat);
+        NodoDoble x = new NodoDoble(t);
+        x.asignaLD(x);
+        x.asignaLI(x);
+        t = (Tripleta) ultimo.retornaDato();
+        t.asignaValor(x);
+        ultimo.asignaDato(t);
+        t = (Tripleta) this.mat.retornaDato();
+        t.asignaFila(t.retornaFila() + 1);
+        t.asignaColumna(t.retornaColumna() + 1);
+    }
+    
+    public void eliminarNodoCabeza(){
+        NodoDoble anterior = this.mat;
+        NodoDoble ultimo = (NodoDoble) ((Tripleta) this.mat.retornaDato()).retornaValor();
+        while ((NodoDoble) ((Tripleta) ultimo.retornaDato()).retornaValor() != this.mat) {
+            anterior = ultimo;
+            ultimo = (NodoDoble) ((Tripleta) ultimo.retornaDato()).retornaValor();
+        }
+        Tripleta t = (Tripleta) anterior.retornaDato();
+        t.asignaValor(this.mat);
+        t.asignaFila(t.retornaFila() - 1);
+        t.asignaColumna(t.retornaColumna() - 1);
+    }
+    
     public void conectaPorFilas(NodoDoble x) {
         Tripleta t = (Tripleta) x.retornaDato();
         int f = t.retornaFila();
@@ -277,19 +307,21 @@ public class MatrizForma1 {
         return l;
     }
 
-    public ArrayList BFS(int v, ArrayList<Integer> l){
+    public ArrayList BFS(int v, ArrayList<Integer> l, ArrayList<Integer> o){
         System.out.println(v);
         l.add(v);
+        o.add(v);
         while(!l.isEmpty()) {
             v = l.remove(l.size() - 1);
             ArrayList<Integer> j = adyacentes(v);
             for (Integer vertice : j) {
-                if (!l.contains(vertice))
+                if (!o.contains(vertice)) {
                     l.add(vertice);
-                    BFS(vertice, l);
+                    BFS(vertice, l, o);
+                }
             }
         }
-        return l;
+        return o;
     }
     
     public int mayor(int a, int b) {  // Original

@@ -8,10 +8,12 @@ import java.util.ArrayList;
 public class Storage {
     private ArrayList<MatrizAdyacente> sg = new ArrayList<>();
     private ObservableList<String> nom = FXCollections.observableArrayList();
+    private ArrayList<ObservableList> vts = new ArrayList<>();
     
-    public void save(String name, MatrizAdyacente m) {
-        nom.add(name);
-        sg.add(m);
+    public void save(String name, MatrizAdyacente m, ObservableList vts) {
+        this.nom.add(name);
+        this.sg.add(m);
+        this.vts.add(vts);
     }
     
     public MatrizAdyacente returnM(int i) {
@@ -22,15 +24,19 @@ public class Storage {
         return nom;
     }
     
-    public ObservableList returnNv(int i) {
-        ObservableList vts = FXCollections.observableArrayList();
-        for (int j = 1; j <= this.sg.get(i).retornaNv(); j++) {
-            vts.add(j);
-        }
-        return vts;
+    public ObservableList returnV(int i) {
+        return this.vts.get(i);
     }
     
-    public Integer searchV(String pName, int n) {
+    public ArrayList returnVts(){
+        return this.vts;
+    }
+    
+    public void addV(MatrizAdyacente m, int vt) {
+        int pos = this.sg.indexOf(m);
+        this.vts.get(pos).add(vt);
+    }
+    public Integer searchV(int pName, int n) {
         return vts.get(n).indexOf(pName);
         /*int i = -1;
         for (String name : vts.get(n)) {

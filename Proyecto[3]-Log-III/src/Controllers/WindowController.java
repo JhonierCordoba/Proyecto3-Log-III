@@ -1,7 +1,9 @@
 package Controllers;
 
 import Modelos.MatrizAdyacente;
+import Modelos.NodoDoble;
 import Modelos.Storage;
+import Modelos.Tripleta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,17 +27,27 @@ public class WindowController {
     @FXML
     private TextField tfPrice;
     @FXML
+    private TextField tfAgregarVert;
+    @FXML
+    private TextField tfEliminarVert;
+    @FXML
+    private TextField tfInicio;
+    @FXML
     private TextArea taMostrar;
     @FXML
     private TextArea taRecorrer;
     @FXML
     private ListView listN;
     @FXML
+    private ListView listN_1;
+    @FXML
     private ListView listN_2;
     @FXML
     private ListView listN_3;
     @FXML
     private ListView listV;
+    @FXML
+    private ListView listV_1;
     @FXML
     private ComboBox cbV1;
     @FXML
@@ -73,10 +85,15 @@ public class WindowController {
         if (!this.restricciones(0)) {
             return;
         }
-        int vts = Integer.parseInt(this.tfVert.getText());
-        MatrizAdyacente m = new MatrizAdyacente(vts);
-        this.sg.save(this.tfNom.getText(), m);
+        int nV = Integer.parseInt(this.tfVert.getText());
+        MatrizAdyacente m = new MatrizAdyacente(nV);
+        ObservableList vts = FXCollections.observableArrayList();
+        for (int i = 1; i <= nV; i++) {
+            vts.add(i);
+        }
+        this.sg.save(this.tfNom.getText(), m, vts);
         this.listN.setItems(this.sg.returnN());
+        this.listN_1.setItems(this.sg.returnN());
         this.listN_2.setItems(this.sg.returnN());
         this.listN_3.setItems(this.sg.returnN());
         this.listN.getSelectionModel().select(this.sg.returnN().size() - 1);
@@ -92,13 +109,17 @@ public class WindowController {
     }
     
     public void actualizarVertices() {
-        this.listV.setItems(this.sg.returnNv(this.listN.getSelectionModel().getSelectedIndex()));
-        this.cbV1.setItems(this.sg.returnNv(this.listN.getSelectionModel().getSelectedIndex()));
-        this.cbV2.setItems(this.sg.returnNv(this.listN.getSelectionModel().getSelectedIndex()));
+        this.listV.setItems(this.sg.returnV(this.listN.getSelectionModel().getSelectedIndex()));
+        this.cbV1.setItems(this.sg.returnV(this.listN.getSelectionModel().getSelectedIndex()));
+        this.cbV2.setItems(this.sg.returnV(this.listN.getSelectionModel().getSelectedIndex()));
+    }
+    
+    public void actualizarVertices_1() {
+        this.listV_1.setItems(this.sg.returnV(this.listN_1.getSelectionModel().getSelectedIndex()));
     }
     
     public void conectarV() {
-        if(!this.restricciones(1)){
+        if (!this.restricciones(1)) {
             return;
         }
         int select = this.listN.getSelectionModel().getSelectedIndex();
@@ -106,45 +127,73 @@ public class WindowController {
         int a = cbV1.getSelectionModel().getSelectedIndex() + 1;
         int b = cbV2.getSelectionModel().getSelectedIndex() + 1;
         int price = Integer.parseInt(this.tfPrice.getText());
-        m.agregarConexion(a, b,price);
+        m.agregarConexion(a, b, price);
+        this.tfPrice.setText("");
+        this.tfPrice.setPromptText("Conectado");
     }
     
-    public void actualizarMuestra(){
+    public void actualizarMuestra() {
         int select = this.listN_2.getSelectionModel().getSelectedIndex();
         MatrizAdyacente m = this.sg.returnM(select);
         this.taMostrar.setText(m.retornaM1().imprimeMatriz());
     }
     
-    public void DFS(){
+    public void DFS() {
         int select = this.listN_3.getSelectionModel().getSelectedIndex();
         MatrizAdyacente m = this.sg.returnM(select);
-        String d = tfInicio.getText();
-        select = this.sg.searchV(d, select);
-        ArrayList<Integer> o = m.DFS(select);
+        int d = Integer.parseInt(tfInicio.getText());
+        int select2 = this.sg.searchV(d, select);
+        ArrayList<Integer> o = m.DFS(select2 + 1);
         String pv = "";
-        for(Integer ent: o){
-            pv += this.sg.vts.get(select).get(ent) + " ";
+        ArrayList lq = this.sg.returnVts();
+        ObservableList lv = (ObservableList) lq.get(select);
+        for (Integer ent : o) {
+            pv += lv.get(ent - 1) + " ";
         }
         this.taRecorrer.setText(pv);
     }
     
-    public void BFS(){
+    public void BFS() {
         int select = this.listN_3.getSelectionModel().getSelectedIndex();
         MatrizAdyacente m = this.sg.returnM(select);
-        String d = tfInicio.getText();
-        select = this.sg.searchV(d, select);
-        ArrayList<Integer> o = m.DFS(select);
+        int d = Integer.parseInt(tfInicio.getText());
+        int select2 = this.sg.searchV(d, select);
+        ArrayList<Integer> o = m.BFS(select2 + 1);
         String pv = "";
-        for(int ent = o.size() - 1; ent >= 0; ent--){
-            pv += this.sg.vts.get(select).get(ent) + " ";
+        ArrayList lq = this.sg.returnVts();
+        ObservableList lv = (ObservableList) lq.get(select);
+        for (int ent = o.size(); ent > 0; ent--) {
+            pv += lv.get(o.get(ent - 1) - 1) + " ";
         }
         this.taRecorrer.setText(pv);
+    }
+    
+    public void agregarVertice() {
+        if (!this.restricciones(2)) {
+            return;
+        }
+        int select = this.listN_1.getSelectionModel().getSelectedIndex();
+        MatrizAdyacente m = this.sg.returnM(select);
+        int vt = Integer.parseInt(this.tfAgregarVert.getText());
+        this.sg.addV(m, vt);
+        m.retornaM1().agregarNodoCabeza();
+        this.tfAgregarVert.setText("");
+        this.tfAgregarVert.setPromptText("Agregado");
+        this.actualizarVertices();
+    }
+    
+    public void eliminarVertice() {
+        System.out.println("oe");
+        int select = this.listN.getSelectionModel().getSelectedIndex();
+        MatrizAdyacente m = this.sg.returnM(select);
+        m.retornaM1().eliminarNodoCabeza();
+        this.actualizarVertices();
     }
     
     /**
      * Restricciones de la aplicación
      *
-     * @param tipo 0: Agregar, 1: Conectar
+     * @param tipo 0: Crear, 1: Conectar, 2: Agregar
      */
     public Boolean restricciones(int tipo) {
         switch (tipo) {
@@ -179,7 +228,7 @@ public class WindowController {
                     errors(3);
                     return false;
                 }
-                if(this.tfPrice.getText().isEmpty()){
+                if (this.tfPrice.getText().isEmpty()) {
                     errors(5);
                     return false;
                 }
@@ -196,6 +245,27 @@ public class WindowController {
                 }
                 break;
             }
+            case 2: {
+                if (this.listN_1.getSelectionModel().getSelectedIndex() == -1) {
+                    errors(6);
+                    return false;
+                }
+                if (this.tfAgregarVert.getText().isEmpty()) {
+                    errors(1);
+                    return false;
+                }
+                int n;
+                try {
+                    n = Integer.parseInt(this.tfAgregarVert.getText());
+                } catch (NumberFormatException exception) {
+                    errors(4);
+                    return false;
+                }
+                if (n < 0) {
+                    errors(4);
+                    return false;
+                }
+            }
         }
         return true;
     }
@@ -203,7 +273,7 @@ public class WindowController {
     /**
      * Errores de la aplicación
      *
-     * @param tipo 0: Nombre vacío, 1: Vértices vacíos, 2: Faltan vértices, 3: Mismo vértice, 4: No numérico positivo, 5: Sin Precio, 6: Formato Precio
+     * @param tipo 0: Nombre vacío, 1: Vértices vacíos, 2: Faltan vértices, 3: Mismo vértice, 4: No numérico positivo, 5: Sin Precio, 6: Formato Precio, 7: Sin Selección
      */
     public void errors(int tipo) {
         String message = "error";
@@ -228,12 +298,15 @@ public class WindowController {
                 message = "El número de vértices debe ser un entero positivo";
                 break;
             }
-            case 5:{
+            case 5: {
                 message = "Ingrese un precio";
                 break;
             }
-            case 6:{
+            case 6: {
                 message = "El precio debe ser un entero positivo";
+            }
+            case 7: {
+                message = "No se ha seleccionado ningún elemento";
             }
         }
         JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
