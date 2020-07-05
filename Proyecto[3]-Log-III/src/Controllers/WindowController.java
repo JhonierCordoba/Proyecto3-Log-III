@@ -13,6 +13,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class WindowController {
     
@@ -115,11 +116,29 @@ public class WindowController {
     }
     
     public void DFS(){
-        this.taRecorrer.setText("Recorriendo con DFS...");
+        int select = this.listN_3.getSelectionModel().getSelectedIndex();
+        MatrizAdyacente m = this.sg.returnM(select);
+        String d = tfInicio.getText();
+        select = this.sg.searchV(d, select);
+        ArrayList<Integer> o = m.DFS(select);
+        String pv = "";
+        for(Integer ent: o){
+            pv += this.sg.vts.get(select).get(ent) + " ";
+        }
+        this.taRecorrer.setText(pv);
     }
     
     public void BFS(){
-        this.taRecorrer.setText("Recorriendo con BFS...");
+        int select = this.listN_3.getSelectionModel().getSelectedIndex();
+        MatrizAdyacente m = this.sg.returnM(select);
+        String d = tfInicio.getText();
+        select = this.sg.searchV(d, select);
+        ArrayList<Integer> o = m.DFS(select);
+        String pv = "";
+        for(int ent = o.size() - 1; ent >= 0; ent--){
+            pv += this.sg.vts.get(select).get(ent) + " ";
+        }
+        this.taRecorrer.setText(pv);
     }
     
     /**

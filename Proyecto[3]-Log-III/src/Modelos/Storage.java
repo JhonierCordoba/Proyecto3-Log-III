@@ -30,14 +30,15 @@ public class Storage {
         return vts;
     }
     
-//    public Integer search(String pName) {
-//        int i = -1;
-//        for (String name : nom) {
-//            i++;
-//            if (name.equals(pName)) {
-//                return i;
-//            }
-//        }
-//        return null;
-//    }
+    public Integer searchV(String pName, int n) {
+        return vts.get(n).indexOf(pName);
+        /*int i = -1;
+        for (String name : vts.get(n)) {
+            i++;
+            if (name.equals(pName)) {
+                return i;
+            }
+        }
+        return null;*/
+   }
 }
