@@ -1,5 +1,7 @@
 package Modelos;
 
+import java.util.ArrayList;
+
 public class MatrizAdyacente {
     
     
@@ -10,11 +12,11 @@ public class MatrizAdyacente {
         p.contruyeNodosCabeza();
     }
     
-    public MatrizForma1 retornaM1(){
+    public MatrizForma1 retornaM1() {
         return p;
     }
     
-    public int retornaNv(){
+    public int retornaNv() {
         return this.p.retornaNumeroFilas();
     }
     
@@ -27,5 +29,19 @@ public class MatrizAdyacente {
         x = new NodoDoble(t);
         this.p.conectaPorFilas(x);
         this.p.conectaPorColumnas(x);
+    }
+    
+    public ArrayList DFS(int v) {
+        ArrayList<Integer> l = new ArrayList<>();
+        ArrayList<Integer> o;
+        o = this.p.DFS(v, l);
+        return o;
+    }
+    
+    public ArrayList BFS(int v) {
+        ArrayList<Integer> l = new ArrayList<>();
+        ArrayList<Integer> o;
+        o = this.p.DFS(v, l);
+        return o;
     }
 }
