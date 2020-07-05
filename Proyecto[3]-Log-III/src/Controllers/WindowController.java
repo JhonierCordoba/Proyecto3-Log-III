@@ -139,11 +139,31 @@ public class WindowController {
     }
     
     public void DFS() {
-        this.taRecorrer.setText("Recorriendo con DFS...");
+        int select = this.listN_3.getSelectionModel().getSelectedIndex();
+        MatrizAdyacente m = this.sg.returnM(select);
+        int d = Integer.parseInt(tfInicio.getText());
+        select = this.sg.searchV(d, select);
+        ArrayList<Integer> o = m.DFS(select);
+        String pv = "";
+        ObservableList lv = (ObservableList) this.sg.returnVts().get(select);
+        for (Integer ent : o) {
+            pv += lv.get(ent) + " ";
+        }
+        this.taRecorrer.setText(pv);
     }
     
     public void BFS() {
-        this.taRecorrer.setText("Recorriendo con BFS...");
+        int select = this.listN_3.getSelectionModel().getSelectedIndex();
+        MatrizAdyacente m = this.sg.returnM(select);
+        int d = Integer.parseInt(tfInicio.getText());
+        select = this.sg.searchV(d, select);
+        ArrayList<Integer> o = m.DFS(select);
+        String pv = "";
+        ObservableList lv = (ObservableList) this.sg.returnVts().get(select);
+        for (int ent = o.size() - 1; ent >= 0; ent--) {
+            pv += lv.get(ent) + " ";
+        }
+        this.taRecorrer.setText(pv);
     }
     
     public void agregarVertice() {
@@ -153,7 +173,7 @@ public class WindowController {
         int select = this.listN_1.getSelectionModel().getSelectedIndex();
         MatrizAdyacente m = this.sg.returnM(select);
         int vt = Integer.parseInt(this.tfAgregarVert.getText());
-        this.sg.addV(m,vt);
+        this.sg.addV(m, vt);
         m.retornaM1().agregarNodoCabeza();
         this.tfAgregarVert.setText("");
         this.tfAgregarVert.setPromptText("Agregado");

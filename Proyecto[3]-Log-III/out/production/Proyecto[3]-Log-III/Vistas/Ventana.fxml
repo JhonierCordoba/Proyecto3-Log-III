@@ -116,6 +116,8 @@
                                     <Button layoutX="14.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#DFS" prefHeight="25.0" prefWidth="58.0" text="DFS" />
                                     <Button layoutX="78.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#BFS" prefHeight="25.0" prefWidth="58.0" text="BFS" />
                                     <TextArea fx:id="taRecorrer" layoutX="146.0" layoutY="37.0" prefHeight="247.0" prefWidth="446.0" />
+                                    <TextField fx:id="tfInicio" layoutX="506.0" layoutY="296.0" prefHeight="25.0" prefWidth="80.0" />
+                                    <Label layoutX="397.0" layoutY="300.0" text="Posición de inicio:" />
                                  </children>
                               </AnchorPane>
                           </content>

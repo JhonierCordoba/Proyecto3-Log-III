@@ -28,8 +28,23 @@ public class Storage {
         return this.vts.get(i);
     }
     
+    public ArrayList returnVts(){
+        return this.vts;
+    }
+    
     public void addV(MatrizAdyacente m, int vt) {
         int pos = this.sg.indexOf(m);
         this.vts.get(pos).add(vt);
     }
+    public Integer searchV(int pName, int n) {
+        return vts.get(n).indexOf(pName);
+        /*int i = -1;
+        for (String name : vts.get(n)) {
+            i++;
+            if (name.equals(pName)) {
+                return i;
+            }
+        }
+        return null;*/
+   }
 }

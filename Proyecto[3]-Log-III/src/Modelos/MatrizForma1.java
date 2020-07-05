@@ -275,6 +275,52 @@ public class MatrizForma1 {
         }
         return false;
     }
+
+    public ArrayList adyacentes(int f) {
+        ArrayList<Integer> j = new ArrayList<>();
+        Tripleta t = (Tripleta) this.mat.retornaDato();
+        NodoDoble p = (NodoDoble) t.retornaValor();
+        NodoDoble q;
+        while (p != this.mat) {
+            q = p.retornaLD();
+            while (q != p) {
+                t = (Tripleta) q.retornaDato();
+                if (f == t.retornaFila()) {
+                    j.add(t.retornaColumna());
+                }
+                q = q.retornaLD();
+            }
+            t = (Tripleta) p.retornaDato();
+            p = (NodoDoble) t.retornaValor();
+        }
+        return j;
+    }
+
+    public ArrayList DFS(int v, ArrayList<Integer> l){
+        System.out.println(v);
+        l.add(v);
+        ArrayList<Integer> j = adyacentes(v);
+        for(Integer vertice: j){
+            if (!l.contains(vertice))
+                DFS(vertice, l);
+        }
+        return l;
+    }
+
+    public ArrayList BFS(int v, ArrayList<Integer> l){
+        System.out.println(v);
+        l.add(v);
+        while(!l.isEmpty()) {
+            v = l.remove(l.size() - 1);
+            ArrayList<Integer> j = adyacentes(v);
+            for (Integer vertice : j) {
+                if (!l.contains(vertice))
+                    l.add(vertice);
+                    BFS(vertice, l);
+            }
+        }
+        return l;
+    }
     
     public int mayor(int a, int b) {  // Original
         return a > b ? a : b;
