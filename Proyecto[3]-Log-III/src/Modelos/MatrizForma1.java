@@ -47,17 +47,76 @@ public class MatrizForma1 {
         t.asignaColumna(t.retornaColumna() + 1);
     }
     
-    public void eliminarNodoCabeza(){
-        NodoDoble anterior = this.mat;
-        NodoDoble ultimo = (NodoDoble) ((Tripleta) this.mat.retornaDato()).retornaValor();
-        while ((NodoDoble) ((Tripleta) ultimo.retornaDato()).retornaValor() != this.mat) {
-            anterior = ultimo;
-            ultimo = (NodoDoble) ((Tripleta) ultimo.retornaDato()).retornaValor();
+    public void eliminarNodoCabeza(int i) {
+        NodoDoble p = this.mat;
+        for (int j = 0; j < i; j++) {
+            p = (NodoDoble) ((Tripleta) p.retornaDato()).retornaValor();
         }
-        Tripleta t = (Tripleta) anterior.retornaDato();
-        t.asignaValor(this.mat);
+        Tripleta t = (Tripleta) p.retornaDato();
+        for (int j = 0; j < 2; j++) {
+            p = (NodoDoble) ((Tripleta) p.retornaDato()).retornaValor();
+        }
+        t.asignaValor(p);
+        p = (NodoDoble) ((Tripleta) this.mat.retornaDato()).retornaValor();
+        int f = 0;
+        int c = 0;
+        while (p != this.mat) {
+            // Desconectar por filas
+            NodoDoble q = p.retornaLD();
+            NodoDoble aq = p;
+            while (q != p) {
+                t = (Tripleta) q.retornaDato();
+                if (t.retornaFila() == i + 1 || t.retornaColumna() == i + 1) {
+                    aq.asignaLD(q.retornaLD());
+                    f++;
+                }
+                aq = q;
+                q = q.retornaLD();
+            }
+            // Desconectar por columnas
+            q = p.retornaLI();
+            aq = p;
+            while (q != p) {
+                t = (Tripleta) q.retornaDato();
+                if (t.retornaFila() == i + 1 || t.retornaColumna() == i + 1) {
+                    aq.asignaLI(q.retornaLI());
+                    c++;
+                }
+                aq = q;
+                q = q.retornaLI();
+            }
+            t = (Tripleta) p.retornaDato();
+            this.disminuir(t, f, c);
+            p = (NodoDoble) ((Tripleta) p.retornaDato()).retornaValor();
+        }
+        p = (NodoDoble) ((Tripleta) p.retornaDato()).retornaValor();
+        while (p != this.mat) {
+            // Reducciones de filas y columnas
+            NodoDoble q = p.retornaLD();
+            while (q != p) {
+                t = (Tripleta) q.retornaDato();
+                if (t.retornaFila() > i + 1) {
+                    this.disminuir(t, 1, 0);
+                }
+                if (t.retornaColumna() > i + 1) {
+                    this.disminuir(t, 0, 1);
+                }
+                q = q.retornaLD();
+            }
+            p = (NodoDoble) ((Tripleta) p.retornaDato()).retornaValor();
+        }
+        t = (Tripleta) this.mat.retornaDato();
+        this.disminuir(t);
+    }
+    
+    public void disminuir(Tripleta t) {
         t.asignaFila(t.retornaFila() - 1);
         t.asignaColumna(t.retornaColumna() - 1);
+    }
+    
+    public void disminuir(Tripleta t, int f, int c) {
+        t.asignaFila(t.retornaFila() - f);
+        t.asignaColumna(t.retornaColumna() - c);
     }
     
     public void conectaPorFilas(NodoDoble x) {
@@ -275,7 +334,7 @@ public class MatrizForma1 {
         }
         return false;
     }
-
+    
     public ArrayList adyacentes(int f) {
         ArrayList<Integer> j = new ArrayList<>();
         Tripleta t = (Tripleta) this.mat.retornaDato();
@@ -295,31 +354,68 @@ public class MatrizForma1 {
         }
         return j;
     }
-
-    public ArrayList DFS(int v, ArrayList<Integer> l){
+    
+    public ArrayList DFS(int v, ArrayList<Integer> l) {
         System.out.println(v);
         l.add(v);
         ArrayList<Integer> j = adyacentes(v);
-        for(Integer vertice: j){
+        for (Integer vertice : j) {
             if (!l.contains(vertice))
                 DFS(vertice, l);
         }
         return l;
     }
-
-    public ArrayList BFS(int v, ArrayList<Integer> l){
+    
+    public ArrayList BFS(int v, ArrayList<Integer> l) {
         System.out.println(v);
         l.add(v);
-        while(!l.isEmpty()) {
+        while (!l.isEmpty()) {
             v = l.remove(l.size() - 1);
             ArrayList<Integer> j = adyacentes(v);
             for (Integer vertice : j) {
                 if (!l.contains(vertice))
                     l.add(vertice);
-                    BFS(vertice, l);
+                BFS(vertice, l);
             }
         }
         return l;
+    }
+    
+    public void eliminarLado(int a, int b) {
+        Tripleta t = (Tripleta) this.mat.retornaDato();
+        NodoDoble p = (NodoDoble) t.retornaValor();
+        NodoDoble q,aq;
+        int f = 0;
+        int c = 0;
+        while (p != this.mat) {
+            // Desconectar por filas
+            q = p.retornaLD();
+            aq = p;
+            while (q != p) {
+                t = (Tripleta) q.retornaDato();
+                if ((t.retornaFila() == a && t.retornaColumna() == b) || (t.retornaColumna() == a && t.retornaFila() == b)) {
+                    aq.asignaLD(q.retornaLD());
+                    f++;
+                }
+                aq = q;
+                q = q.retornaLD();
+            }
+            // Desconectar por columnas
+            q = p.retornaLI();
+            aq = p;
+            while (q != p) {
+                t = (Tripleta) q.retornaDato();
+                if ((t.retornaFila() == a || t.retornaColumna() == b) && (t.retornaColumna() == a || t.retornaFila() == b)) {
+                    aq.asignaLI(q.retornaLI());
+                    c++;
+                }
+                aq = q;
+                q = q.retornaLI();
+            }
+            t = (Tripleta) p.retornaDato();
+            this.disminuir(t,f,c);
+            p = (NodoDoble) t.retornaValor();
+        }
     }
     
     public int mayor(int a, int b) {  // Original

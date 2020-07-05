@@ -36,6 +36,11 @@ public class Storage {
         int pos = this.sg.indexOf(m);
         this.vts.get(pos).add(vt);
     }
+    
+    public void removeV(MatrizAdyacente m, int vt) {
+        int pos = this.sg.indexOf(m);
+        this.vts.get(pos).remove(vt);
+    }
     public Integer searchV(int pName, int n) {
         return vts.get(n).indexOf(pName);
         /*int i = -1;

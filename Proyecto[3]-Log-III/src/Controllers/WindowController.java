@@ -11,6 +11,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -52,6 +54,12 @@ public class WindowController {
     private ComboBox cbV1;
     @FXML
     private ComboBox cbV2;
+    @FXML
+    private ComboBox cbV1_1;
+    @FXML
+    private ComboBox cbV2_1;
+    @FXML
+    private ImageView image;
     
     // OnKeyPressed - open
     
@@ -81,6 +89,9 @@ public class WindowController {
     
     // OnKeyPressed - close
     
+    public void egg(){
+    image.setImage(new Image("Vistas/img/Captura(76).png"));
+    }
     public void agregar() {
         if (!this.restricciones(0)) {
             return;
@@ -112,10 +123,16 @@ public class WindowController {
         this.listV.setItems(this.sg.returnV(this.listN.getSelectionModel().getSelectedIndex()));
         this.cbV1.setItems(this.sg.returnV(this.listN.getSelectionModel().getSelectedIndex()));
         this.cbV2.setItems(this.sg.returnV(this.listN.getSelectionModel().getSelectedIndex()));
+        this.cbV1.getSelectionModel().clearSelection();
+        this.cbV2.getSelectionModel().clearSelection();
     }
     
     public void actualizarVertices_1() {
         this.listV_1.setItems(this.sg.returnV(this.listN_1.getSelectionModel().getSelectedIndex()));
+        this.cbV1_1.setItems(this.sg.returnV(this.listN_1.getSelectionModel().getSelectedIndex()));
+        this.cbV2_1.setItems(this.sg.returnV(this.listN_1.getSelectionModel().getSelectedIndex()));
+        this.cbV1_1.getSelectionModel().clearSelection();
+        this.cbV2_1.getSelectionModel().clearSelection();
     }
     
     public void conectarV() {
@@ -181,11 +198,24 @@ public class WindowController {
     }
     
     public void eliminarVertice() {
-        System.out.println("oe");
-        int select = this.listN.getSelectionModel().getSelectedIndex();
+        if (!this.restricciones(3)) {
+            return;
+        }
+        int select = this.listN_1.getSelectionModel().getSelectedIndex();
         MatrizAdyacente m = this.sg.returnM(select);
-        m.retornaM1().eliminarNodoCabeza();
+        select = this.listV_1.getSelectionModel().getSelectedIndex();
+        this.sg.removeV(m, select);
+        m.retornaM1().eliminarNodoCabeza(select);
         this.actualizarVertices();
+    }
+    
+    public void eliminarLado(){
+        int select = this.listN_1.getSelectionModel().getSelectedIndex();
+        MatrizAdyacente m = this.sg.returnM(select);
+        int a = this.cbV1_1.getSelectionModel().getSelectedIndex() + 1;
+        int b = this.cbV2_1.getSelectionModel().getSelectedIndex() + 1;
+        m.retornaM1().eliminarLado(a,b);
+        actualizarVertices_1();
     }
     
     /**
@@ -263,6 +293,14 @@ public class WindowController {
                     errors(4);
                     return false;
                 }
+                break;
+            }
+            case 3: {
+                if (this.listV_1.getSelectionModel().getSelectedIndex() == -1) {
+                    errors(6);
+                    return false;
+                }
+                break;
             }
         }
         return true;
