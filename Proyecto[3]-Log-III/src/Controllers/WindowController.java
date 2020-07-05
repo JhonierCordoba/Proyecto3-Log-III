@@ -18,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class WindowController {
     
@@ -204,6 +205,16 @@ public class WindowController {
         this.sg.removeV(m, select);
         m.retornaM1().eliminarNodoCabeza(select);
         this.actualizarVertices();
+    }
+
+    public void puntosDeArticulacion(){
+        int select = this.listN_1.getSelectionModel().getSelectedIndex();
+        MatrizAdyacente m = this.sg.returnM(select);
+        Stack pila = new Stack();
+        ArrayList lq = this.sg.returnVts();
+        ObservableList lv = (ObservableList) lq.get(select);
+        m.puntosdeArticulacion();
+
     }
     
     public void eliminarLado(){

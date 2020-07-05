@@ -1,11 +1,13 @@
 package Modelos;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class MatrizAdyacente {
     
     
-    MatrizForma1 p;
+    private MatrizForma1 p;
+    private int lados = 0;
     
     public MatrizAdyacente(int n) {
         this.p = new MatrizForma1(n, n);
@@ -29,6 +31,7 @@ public class MatrizAdyacente {
         x = new NodoDoble(t);
         this.p.conectaPorFilas(x);
         this.p.conectaPorColumnas(x);
+        this.lados++;
     }
     
     public ArrayList DFS(int v) {
@@ -43,5 +46,38 @@ public class MatrizAdyacente {
         ArrayList<Integer> o = new ArrayList<>();
         o = this.p.BFS(v, l, o);
         return o;
+    }
+
+    public boolean esConectado(){
+        int v = 1;
+        ArrayList<Integer> l = new ArrayList<>();
+        ArrayList<Integer> o;
+        o = this.p.DFS(v, l);
+        return o.size() == this.p.retornaNumeroFilas();
+    }
+
+    public int retornaLados(){
+        return this.lados;
+    }
+
+    public boolean esCiclico(){
+        return retornaLados() >= this.p.retornaNumeroFilas();
+    }
+
+    public boolean esLibre(){
+        return esConectado() && !esCiclico();
+    }
+
+    public ArrayList puntosdeArticulacion(){
+        ArrayList<Integer> j = new ArrayList<>();
+        MatrizAdyacente l = this;
+        for(int i = 0; i < this.retornaNv(); i++) {
+            l.retornaM1().eliminarNodoCabeza(i);
+            if (l.esConectado()){
+                j.add(i);
+            }
+            i++;
+        }
+        return j;
     }
 }
