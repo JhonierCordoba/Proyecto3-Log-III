@@ -121,6 +121,7 @@
                                     <TextArea fx:id="taRecorrer" layoutX="146.0" layoutY="37.0" prefHeight="247.0" prefWidth="446.0" />
                                     <Label layoutX="400.0" layoutY="300.0" text="Posición de inicio:" />
                                     <ComboBox fx:id="cbInicio" layoutX="510.0" layoutY="296.0" prefHeight="25.0" prefWidth="76.0" />
+                                    <Button defaultButton="true" layoutX="300.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#spanningTree" text="Spanning Tree" />
                                  </children>
                               </AnchorPane>
                           </content>

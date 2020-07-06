@@ -365,6 +365,36 @@ public class MatrizForma1 {
         }
         return l;
     }
+    
+    public ArrayList DFS_art(int v, ArrayList<Integer> l,int omit) {
+        System.out.println(v);
+        l.add(v);
+        ArrayList<Integer> j = adyacentes(v);
+        for (Integer vertice : j) {
+            if (!l.contains(vertice) && vertice != omit)
+                DFS_art(vertice, l,omit);
+        }
+        return l;
+    }
+    
+    public int retornaDato(int salida, int llegada){
+        Tripleta t = (Tripleta) this.mat.retornaDato();
+        NodoDoble p = (NodoDoble) t.retornaValor();
+        NodoDoble q;
+        while (p != this.mat) {
+            q = p.retornaLD();
+            while (q != p) {
+                t = (Tripleta) q.retornaDato();
+                if (salida == t.retornaFila() && llegada == t.retornaColumna()) {
+                    return (int)t.retornaValor();
+                }
+                q = q.retornaLD();
+            }
+            t = (Tripleta) p.retornaDato();
+            p = (NodoDoble) t.retornaValor();
+        }
+        return -1;
+    }
 
     public ArrayList BFS(int v, ArrayList<Integer> l, ArrayList<Integer> o){
         System.out.println(v);

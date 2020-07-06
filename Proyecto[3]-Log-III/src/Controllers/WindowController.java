@@ -212,18 +212,18 @@ public class WindowController {
         this.actualizarVertices();
     }
 
-    public void puntosDeArticulacion(){
-        int select = this.listN_1.getSelectionModel().getSelectedIndex();
-        MatrizDeAdyacencia m = this.sg.returnM(select);
-        Stack pila = new Stack();
-        ArrayList lq = this.sg.returnVts();
-        ObservableList lv = (ObservableList) lq.get(select);
-        m.puntosdeArticulacion();
-
-    }
+//    public void puntosDeArticulacion(){
+//        int select = this.listN_1.getSelectionModel().getSelectedIndex();
+//        MatrizDeAdyacencia m = this.sg.returnM(select);
+//        Stack pila = new Stack();
+//        ArrayList lq = this.sg.returnVts();
+//        ObservableList lv = (ObservableList) lq.get(select);
+//        m.puntosdeArticulacion();
+//
+//    }
     
     public void eliminarLado() {
-        if(!this.restricciones(5)){
+        if (!this.restricciones(5)) {
             return;
         }
         int select = this.listN_1.getSelectionModel().getSelectedIndex();
@@ -234,24 +234,45 @@ public class WindowController {
         actualizarVertices_1();
     }
     
-    public void esLibre(){
-        if(!restricciones(6)){
+    public void esLibre() {
+        if (!restricciones(6)) {
             return;
         }
         int select = this.listN_1.getSelectionModel().getSelectedIndex();
         MatrizDeAdyacencia m = this.sg.returnM(select);
-        if(m.esLibre()){
-        this.taOperaciones.setText("Si");
+        if (m.esLibre()) {
+            this.taOperaciones.setText("Si");
         } else {
             this.taOperaciones.setText("No");
         }
     }
     
-    public void articulacion(){
-        if(!restricciones(6)){
+    public void spanningTree() {
+        int select = this.listN_1.getSelectionModel().getSelectedIndex();
+        MatrizDeAdyacencia m = this.sg.returnM(select);
+        select = this.cbInicio.getSelectionModel().getSelectedIndex() + 1;
+        m.prim(select);
+    }
+    
+    public void articulacion() {
+        if (!restricciones(6)) {
             return;
         }
-        this.taOperaciones.setText("1 2 3 4 No szs");
+        int select = this.listN_1.getSelectionModel().getSelectedIndex();
+        MatrizDeAdyacencia m = this.sg.returnM(select);
+        ArrayList<Integer> art = m.retornaArticulaciones();
+        String pv = "";
+        ArrayList lq = this.sg.returnVts();
+        ObservableList lv = (ObservableList) lq.get(select);
+        for (Integer ent : art) {
+            pv += lv.get(ent - 1) + " ";
+        }
+        if(art.size() == 0){
+            this.taOperaciones.setText("El grafo no tiene articulaciones");
+        } else {
+            this.taOperaciones.setText(pv);
+        }
+        
     }
     
     /**
@@ -406,11 +427,11 @@ public class WindowController {
                 message = "Seleccione la posición inicial";
                 break;
             }
-            case 9:{
+            case 9: {
                 message = "Ingrese un vértice";
                 break;
             }
-            case 10:{
+            case 10: {
                 message = "El vértice debe ser un entero";
                 break;
             }
