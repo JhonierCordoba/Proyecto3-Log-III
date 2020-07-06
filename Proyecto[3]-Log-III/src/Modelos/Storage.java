@@ -6,15 +6,15 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
 public class Storage {
-    private ArrayList<MatrizAdyacente> sg = new ArrayList<>();
+    private ArrayList<MatrizDeAdyacencia> sg = new ArrayList<>();
     private ObservableList<String> nom = FXCollections.observableArrayList();
     private ArrayList<ObservableList> vts = new ArrayList<>();
-    public void save(String name, MatrizAdyacente m, ObservableList vts) {
+    public void save(String name, MatrizDeAdyacencia m, ObservableList vts) {
         this.nom.add(name);
         this.sg.add(m);
         this.vts.add(vts);
     }
-    public MatrizAdyacente returnM(int i) {
+    public MatrizDeAdyacencia returnM(int i) {
         return this.sg.get(i);
     }
     public ObservableList returnN() {
@@ -26,11 +26,11 @@ public class Storage {
     public ArrayList returnVts(){
         return this.vts;
     }
-    public void addV(MatrizAdyacente m, int vt) {
+    public void addV(MatrizDeAdyacencia m, int vt) {
         int pos = this.sg.indexOf(m);
         this.vts.get(pos).add(vt);
     }
-    public void removeV(MatrizAdyacente m, int vt) {
+    public void removeV(MatrizDeAdyacencia m, int vt) {
         int pos = this.sg.indexOf(m);
         this.vts.get(pos).remove(vt);
     }

@@ -1,15 +1,18 @@
 package Modelos;
 
 import java.util.ArrayList;
-import java.util.Stack;
 
-public class MatrizAdyacente {
+public class MatrizDeAdyacencia {
     
     
     private MatrizForma1 p;
     private int lados = 0;
     
-    public MatrizAdyacente(int n) {
+    public MatrizDeAdyacencia(MatrizForma1 p, int lados){
+        this.p = p;
+        this.lados = lados;
+    }
+    public MatrizDeAdyacencia(int n) {
         this.p = new MatrizForma1(n, n);
         p.contruyeNodosCabeza();
     }
@@ -70,7 +73,7 @@ public class MatrizAdyacente {
 
     public ArrayList puntosdeArticulacion(){
         ArrayList<Integer> j = new ArrayList<>();
-        MatrizAdyacente l = this;
+        MatrizDeAdyacencia l = this;
         for(int i = 0; i < this.retornaNv(); i++) {
             l.retornaM1().eliminarNodoCabeza(i);
             if (l.esConectado()){
@@ -79,5 +82,10 @@ public class MatrizAdyacente {
             i++;
         }
         return j;
+    }
+    
+    public MatrizDeAdyacencia clonar(){
+        MatrizDeAdyacencia m = new MatrizDeAdyacencia(this.p,this.lados);
+        return m;
     }
 }

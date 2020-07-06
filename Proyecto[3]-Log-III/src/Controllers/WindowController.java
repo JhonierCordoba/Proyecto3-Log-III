@@ -1,9 +1,7 @@
 package Controllers;
 
-import Modelos.MatrizAdyacente;
-import Modelos.NodoDoble;
+import Modelos.MatrizDeAdyacencia;
 import Modelos.Storage;
-import Modelos.Tripleta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,8 +9,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -93,7 +89,7 @@ public class WindowController {
             return;
         }
         int nV = Integer.parseInt(this.tfVert.getText());
-        MatrizAdyacente m = new MatrizAdyacente(nV);
+        MatrizDeAdyacencia m = new MatrizDeAdyacencia(nV);
         ObservableList vts = FXCollections.observableArrayList();
         for (int i = 1; i <= nV; i++) {
             vts.add(i);
@@ -140,7 +136,7 @@ public class WindowController {
             return;
         }
         int select = this.listN.getSelectionModel().getSelectedIndex();
-        MatrizAdyacente m = this.sg.returnM(select);
+        MatrizDeAdyacencia m = this.sg.returnM(select);
         int a = cbV1.getSelectionModel().getSelectedIndex() + 1;
         int b = cbV2.getSelectionModel().getSelectedIndex() + 1;
         int price = Integer.parseInt(this.tfPrice.getText());
@@ -151,7 +147,7 @@ public class WindowController {
     
     public void actualizarMuestra() {
         int select = this.listN_2.getSelectionModel().getSelectedIndex();
-        MatrizAdyacente m = this.sg.returnM(select);
+        MatrizDeAdyacencia m = this.sg.returnM(select);
         this.taMostrar.setText(m.retornaM1().imprimeMatriz());
     }
     
@@ -160,7 +156,7 @@ public class WindowController {
             return;
         }
         int select = this.listN_3.getSelectionModel().getSelectedIndex();
-        MatrizAdyacente m = this.sg.returnM(select);
+        MatrizDeAdyacencia m = this.sg.returnM(select);
         int d = (int) this.cbInicio.getSelectionModel().getSelectedItem();
         int select2 = this.sg.searchV(d, select);
         ArrayList<Integer> o = m.DFS(select2 + 1);
@@ -178,7 +174,7 @@ public class WindowController {
             return;
         }
         int select = this.listN_3.getSelectionModel().getSelectedIndex();
-        MatrizAdyacente m = this.sg.returnM(select);
+        MatrizDeAdyacencia m = this.sg.returnM(select);
         int select2 = this.cbInicio.getSelectionModel().getSelectedIndex();
         ArrayList<Integer> o = m.BFS(select2 + 1);
         String pv = "";
@@ -195,7 +191,7 @@ public class WindowController {
             return;
         }
         int select = this.listN_1.getSelectionModel().getSelectedIndex();
-        MatrizAdyacente m = this.sg.returnM(select);
+        MatrizDeAdyacencia m = this.sg.returnM(select);
         int vt = Integer.parseInt(this.tfAgregarVert.getText());
         this.sg.addV(m, vt);
         m.retornaM1().agregarNodoCabeza();
@@ -209,7 +205,7 @@ public class WindowController {
             return;
         }
         int select = this.listN_1.getSelectionModel().getSelectedIndex();
-        MatrizAdyacente m = this.sg.returnM(select);
+        MatrizDeAdyacencia m = this.sg.returnM(select);
         select = this.listV_1.getSelectionModel().getSelectedIndex();
         this.sg.removeV(m, select);
         m.retornaM1().eliminarNodoCabeza(select);
@@ -218,7 +214,7 @@ public class WindowController {
 
     public void puntosDeArticulacion(){
         int select = this.listN_1.getSelectionModel().getSelectedIndex();
-        MatrizAdyacente m = this.sg.returnM(select);
+        MatrizDeAdyacencia m = this.sg.returnM(select);
         Stack pila = new Stack();
         ArrayList lq = this.sg.returnVts();
         ObservableList lv = (ObservableList) lq.get(select);
@@ -231,7 +227,7 @@ public class WindowController {
             return;
         }
         int select = this.listN_1.getSelectionModel().getSelectedIndex();
-        MatrizAdyacente m = this.sg.returnM(select);
+        MatrizDeAdyacencia m = this.sg.returnM(select);
         int a = this.cbV1_1.getSelectionModel().getSelectedIndex() + 1;
         int b = this.cbV2_1.getSelectionModel().getSelectedIndex() + 1;
         m.retornaM1().eliminarLado(a, b);
@@ -242,7 +238,13 @@ public class WindowController {
         if(!restricciones(6)){
             return;
         }
-        this.taOperaciones.setText("No szs");
+        int select = this.listN_1.getSelectionModel().getSelectedIndex();
+        MatrizDeAdyacencia m = this.sg.returnM(select);
+        if(m.esLibre()){
+        this.taOperaciones.setText("Si");
+        } else {
+            this.taOperaciones.setText("No");
+        }
     }
     
     public void articulacion(){
