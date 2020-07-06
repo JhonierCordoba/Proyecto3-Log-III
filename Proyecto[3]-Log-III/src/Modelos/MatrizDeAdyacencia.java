@@ -151,25 +151,25 @@ public class MatrizDeAdyacencia {
     
     public void prim(int inicio) {
         int[] conectados = new int[this.retornaNv() + 1];
-        int con, des,baratoTemp;
+        int conMax, desMax, con, des,baratoTemp;
         int barato = 2147483647; // Infinito
         conectados[inicio] = 1;
         for (int i = 1; i <= this.retornaNv(); i++) {
             if (conectados[i] == 1) {
                 con = conectados[i];
                 for (int j = 1; j <= this.retornaNv(); j++) {
-                    if (conectados[i] == 0) {
-                        des = conectados[i];
-                        baratoTemp = this.masBarato(con, des);
+                    if (conectados[j] == 0) {
+                        des = conectados[j];
+                        baratoTemp = this.precio(con, des);
                         if(baratoTemp < barato){
                             barato = baratoTemp;
-                            
+                            conMax = con;
+                            desMax = des;
                         }
                     }
                 }
-                
             }
-            
+            System.out.println(":D");
         }
         
         
@@ -177,28 +177,25 @@ public class MatrizDeAdyacencia {
 //        conectados[pos] = 1;
     }
     
-//    public ArrayList prim_roberto(){
-//        lado l;
-//        int i,v1,v2,k;
-//        k = 0;
-//        ArrayList st = new ArrayList();
-//        int[] escogido = new int[this.retornaNv() + 1];
-//        for (int j = 0; j <= this.retornaNv(); j++) {
-//            escogido[j] = 0;
-//        }
-//
-//    }
-    
-    public int masBarato(int inicio, int adyacente) {
-        int costo = 2147483647; // Infinito
-        int costoTemp, vt = -1;
-        for (int i = 0; i < adyacentes.size(); i++) {
-            costoTemp = this.p.retornaDato(inicio, (int) adyacentes.get(i));
-            if (costo > costoTemp) {
-                costo = costoTemp;
-                vt = (int) adyacentes.get(i);
-            }
+    public int precio(int a, int b){
+        int precio = this.p.retornaDato(a,b);
+        if(precio == -1){
+            return 2147483647;
+        } else {
+            return precio;
         }
-        return vt;
     }
+    
+//    public int masBarato(int inicio, int adyacente) {
+//        int costo = 2147483647; // Infinito
+//        int costoTemp, vt = -1;
+//        for (int i = 0; i < adyacentes.size(); i++) {
+//            costoTemp = this.p.retornaDato(inicio, (int) adyacentes.get(i));
+//            if (costo > costoTemp) {
+//                costo = costoTemp;
+//                vt = (int) adyacentes.get(i);
+//            }
+//        }
+//        return vt;
+//    }
 }

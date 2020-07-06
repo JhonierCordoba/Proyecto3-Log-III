@@ -248,10 +248,26 @@ public class WindowController {
     }
     
     public void spanningTree() {
+        this.taRecorrer.setText("Lo intentamos...");
         int select = this.listN_1.getSelectionModel().getSelectedIndex();
         MatrizDeAdyacencia m = this.sg.returnM(select);
         select = this.cbInicio.getSelectionModel().getSelectedIndex() + 1;
         m.prim(select);
+        if (!this.restricciones(4)) {
+            return;
+        }
+        select = this.listN_3.getSelectionModel().getSelectedIndex();
+        m = this.sg.returnM(select);
+        int d = (int) this.cbInicio.getSelectionModel().getSelectedItem();
+        int select2 = this.sg.searchV(d, select);
+        ArrayList<Integer> o = m.DFS(select2 + 1);
+        String pv = "";
+        ArrayList lq = this.sg.returnVts();
+        ObservableList lv = (ObservableList) lq.get(select);
+        for (Integer ent : o) {
+            pv += lv.get(ent - 1) + " ";
+        }
+        this.taRecorrer.setText(pv);
     }
     
     public void articulacion() {
