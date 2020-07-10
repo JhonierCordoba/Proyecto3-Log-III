@@ -2,7 +2,11 @@ package Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+
+import java.util.Random;
 
 public class Controller {
     @FXML
@@ -14,15 +18,16 @@ public class Controller {
     TextField out_Cantidad;
     
     @FXML
-    TextField tb_1;
+    TextArea tb_1;
     @FXML
-    TextField tb_2;
+    TextArea tb_2;
     
     @FXML
-    CheckBox cb_Rango;
+    ComboBox cb_Rango;
     
     public void generarEntero(){
-    
+        Random rnd = new Random();
+        int n = rnd.nextInt(41) + 10;
     }
     public void generarVector(){
     
