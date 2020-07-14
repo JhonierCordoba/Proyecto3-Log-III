@@ -350,11 +350,13 @@ public class Controller {
         soluciones = new ArrayList();
         this.beneMax = 0;
         this.cargarMochila(0, x, 0, 0);
-        String ans = "Las soluciones posibles son:\n";
+        String ans = "Con un beneficio máximo de " + beneMax + " las soluciones son:\n";
+        ans += "Las soluciones posibles son:\n";
         for (int i = 0; i < soluciones.size(); i++) {
             ans += "Solucion #" + (i + 1) + ":\n";
             for (int j = 0; j < soluciones.get(i).length; j++) {
-                ans += "Objeto # " + (j + 1) + soluciones.get(i)[j] + "\n";
+                if(soluciones.get(i)[j] == true)
+                    ans += "Objeto # " + (j + 1) + "\n";
             }
         }
         this.tb_4.setText(ans);
